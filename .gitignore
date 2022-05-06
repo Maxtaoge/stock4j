@@ -1,0 +1,10 @@
+.idea
+*.iml
+*.log
+.metadata
+.idea
+target
+.project
+.classpath
+.settings
+workspace.xml
