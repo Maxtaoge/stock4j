@@ -1,15 +1,5 @@
 package com.stock4j.factory.ifeng;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.stock4j.ExRightType;
@@ -20,120 +10,132 @@ import com.stock4j.exception.ErrorHttpException;
 import com.stock4j.exception.NullValueException;
 import com.stock4j.exception.UnSupportedException;
 import com.stock4j.factory.HttpClientPool;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.apache.commons.lang.StringUtils;
 
-class TickData extends HttpClientPool{
-	
-	private static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-	private static ObjectMapper mapper = new ObjectMapper();
-	
-	/**
-	 * TickÊı¾İ£¬Ê±¼äµ¹Ğò
-	 * ×î´óÊıÁ¿
-	 * type : 1¡¢  5·ÖÖÓ  2¡¢ 15·ÖÖÓ  3¡¢ 30·ÖÖÓ  4¡¢ 60·ÖÖÓ  5¡¢ÈÕÏß
-	 * http://api.finance.ifeng.com/akmin?scode=sh601989&type=5
-	 * http://api.finance.ifeng.com/akdaily/?code=sh601989&type=last
-	 * @throws UnsupportedEncodingException 
-	 * @throws ParseException 
-	 * @throws NullValueException 
-	 */
-	public List<Tick> listTicks(Stock stock, PeriodType period, int size, ExRightType rhb)
-			throws UnSupportedException, ErrorHttpException, NullValueException {
-		if (rhb != ExRightType.NO)
-			throw new UnSupportedException("²»Ö§³Ö¸´È¨²Ù×÷");
-		if (period == PeriodType.MIN1)
-			throw new UnSupportedException("²»Ö§³Ö1·ÖÖÓKÏßÊı¾İ");
-		
-		String scode = stock.getMarket().name().toLowerCase() + stock.getScode();
-		Map<String, String> params = new HashMap<String, String>();
-		String scale;
-		switch (period){
-		case MIN5:
-			scale="akmin";
-			params.put("scode", scode);
-			params.put("type", "5");
-			break;
-		case MIN15:
-			scale="akmin";
-			params.put("scode", scode);
-			params.put("type", "15");
-			break;
-		case MIN30:
-			scale="akmin";
-			params.put("scode", scode);
-			params.put("type", "30");
-			break;
-		case MIN60:
-			scale="akmin";
-			params.put("scode", scode);
-			params.put("type", "60");
-			break;
-		case DAY:
-			scale="akdaily/";
-			params.put("code", scode);
-			params.put("type", "last");
-			break;
-		case YEAR:
-			scale="ayear/";
-			params.put("code", scode);
-			params.put("type", "last");
-			break;
-		case MONTH:
-			scale="akmonthly/";
-			params.put("code", scode);
-			params.put("type", "last");
-			break;
-		case WEEK:
-			scale="akweekly/";
-			params.put("code", scode);
-			params.put("type", "last");
-			break;
-		default:
-			scale="akdaily/";
-			params.put("code", scode);
-			params.put("type", "last");
-			break;
+class TickData extends HttpClientPool {
+
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private static final ObjectMapper mapper = new ObjectMapper();
+
+    /**
+     * Tickæ•°æ®ï¼Œæ—¶é—´å€’åº æœ€å¤§æ•°é‡ type : 1ã€  5åˆ†é’Ÿ  2ã€ 15åˆ†é’Ÿ  3ã€ 30åˆ†é’Ÿ  4ã€ 60åˆ†é’Ÿ  5ã€æ—¥çº¿ http://api.finance.ifeng.com/akmin?scode=sh601989&type=5
+     * http://api.finance.ifeng.com/akdaily/?code=sh601989&type=last
+     *
+     * @throws UnsupportedEncodingException
+     * @throws ParseException
+     * @throws NullValueException
+     */
+    public List<Tick> listTicks(Stock stock, PeriodType period, int size, ExRightType rhb)
+        throws UnSupportedException, ErrorHttpException, NullValueException {
+		if (rhb != ExRightType.NO) {
+			throw new UnSupportedException("ä¸æ”¯æŒå¤æƒæ“ä½œ");
 		}
-		
-		String url = "http://api.finance.ifeng.com/" + scale;
-		String result = super.get(url, params, "gbk");
-		if(StringUtils.isBlank(result)) 
-			throw new NullValueException("Ö¤È¯´úÂë²»ÕıÈ·/ÎŞÊı¾İ£¡");
-		
-		List<Tick> ticks = new ArrayList<Tick>();
-		try {
-			JsonNode nodes = mapper.readTree(result);
-			JsonNode node = nodes.get("record");
-			if(node.isNull())
-				throw new NullValueException("Ö¤È¯´úÂë²»ÕıÈ·/ÎŞÊı¾İ£¡");
-			
-			int length = node.size();
-			int start = length - size;
-			if(size > length){
-				logger.warn("»ñÈ¡µÄÊı¾İÊıÁ¿Ğ¡ÓÚÉè¶¨Öµ£¬Ô­Òò£º1£©ĞÂ¹É£»2£©ÍøÂçÊı¾İÁ¿ÏŞÖÆ");
-				start = 0;
+		if (period == PeriodType.MIN1) {
+			throw new UnSupportedException("ä¸æ”¯æŒ1åˆ†é’ŸKçº¿æ•°æ®");
+		}
+
+        String scode = stock.getMarket().name().toLowerCase() + stock.getScode();
+        Map<String, String> params = new HashMap<String, String>();
+        String scale;
+        switch (period) {
+            case MIN5:
+                scale = "akmin";
+                params.put("scode", scode);
+                params.put("type", "5");
+                break;
+            case MIN15:
+                scale = "akmin";
+                params.put("scode", scode);
+                params.put("type", "15");
+                break;
+            case MIN30:
+                scale = "akmin";
+                params.put("scode", scode);
+                params.put("type", "30");
+                break;
+            case MIN60:
+                scale = "akmin";
+                params.put("scode", scode);
+                params.put("type", "60");
+                break;
+            case DAY:
+                scale = "akdaily/";
+                params.put("code", scode);
+                params.put("type", "last");
+                break;
+            case YEAR:
+                scale = "ayear/";
+                params.put("code", scode);
+                params.put("type", "last");
+                break;
+            case MONTH:
+                scale = "akmonthly/";
+                params.put("code", scode);
+                params.put("type", "last");
+                break;
+            case WEEK:
+                scale = "akweekly/";
+                params.put("code", scode);
+                params.put("type", "last");
+                break;
+            default:
+                scale = "akdaily/";
+                params.put("code", scode);
+                params.put("type", "last");
+                break;
+        }
+
+        String url = "http://api.finance.ifeng.com/" + scale;
+        String result = super.get(url, params, "gbk");
+		if (StringUtils.isBlank(result)) {
+			throw new NullValueException("è¯åˆ¸ä»£ç ä¸æ­£ç¡®/æ— æ•°æ®ï¼");
+		}
+
+        List<Tick> ticks = new ArrayList<Tick>();
+        try {
+            JsonNode nodes = mapper.readTree(result);
+            JsonNode node = nodes.get("record");
+			if (node.isNull()) {
+				throw new NullValueException("è¯åˆ¸ä»£ç ä¸æ­£ç¡®/æ— æ•°æ®ï¼");
 			}
-			
-			JsonNode data;
-			Tick tick;
-			for(int i = start; i < length; i++){
-				data = node.get(i);
-				tick = new Tick(period);
-				String str = data.get(0).asText();
-				if(str.indexOf(":") < 0)
+
+            int length = node.size();
+            int start = length - size;
+            if (size > length) {
+                logger.warn("è·å–çš„æ•°æ®æ•°é‡å°äºè®¾å®šå€¼ï¼ŒåŸå› ï¼š1ï¼‰æ–°è‚¡ï¼›2ï¼‰ç½‘ç»œæ•°æ®é‡é™åˆ¶");
+                start = 0;
+            }
+
+            JsonNode data;
+            Tick tick;
+            for (int i = start; i < length; i++) {
+                data = node.get(i);
+                tick = new Tick(period);
+                String str = data.get(0).asText();
+				if (str.indexOf(":") < 0) {
 					str += " 00:00:00";
-				
-				tick.setEndDateTime(LocalDateTime.parse(str, dateTimeFormatter));
-				tick.setOpen(data.get(1).asDouble());
-				tick.setHigh(data.get(2).asDouble());
-				tick.setClose(data.get(3).asDouble());
-				tick.setLow(data.get(4).asDouble());
-				tick.setTradingVolume((long) (data.get(5).asDouble() * 100));
-				
-				ticks.add(tick);
-			}
-		} catch (IOException e) {
-			logger.error(e.getMessage());
-		}
-		return ticks;
-	}
+				}
+
+                tick.setEndDateTime(LocalDateTime.parse(str, dateTimeFormatter));
+                tick.setOpen(data.get(1).asDouble());
+                tick.setHigh(data.get(2).asDouble());
+                tick.setClose(data.get(3).asDouble());
+                tick.setLow(data.get(4).asDouble());
+                tick.setTradingVolume((long) (data.get(5).asDouble() * 100));
+
+                ticks.add(tick);
+            }
+        } catch (IOException e) {
+            logger.error(e.getMessage());
+        }
+        return ticks;
+    }
 }

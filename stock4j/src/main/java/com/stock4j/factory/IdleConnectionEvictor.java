@@ -8,16 +8,16 @@ import org.slf4j.LoggerFactory;
  * 定期清理无效的http连接
  */
 public class IdleConnectionEvictor extends Thread {
-	
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private final HttpClientConnectionManager connMgr;
-    
-    private Integer waitTime;
+
+    private final Integer waitTime;
 
     private volatile boolean shutdown;
 
-    public IdleConnectionEvictor(HttpClientConnectionManager connMgr,Integer waitTime) {
+    IdleConnectionEvictor(HttpClientConnectionManager connMgr, Integer waitTime) {
         this.connMgr = connMgr;
         this.waitTime = waitTime;
     }
@@ -26,7 +26,7 @@ public class IdleConnectionEvictor extends Thread {
     public void run() {
         try {
             while (!shutdown) {
-            	logger.info("---------定期清理无效的连接-------------");
+                logger.info("---------定期清理无效的连接-------------");
                 synchronized (this) {
                     wait(waitTime);
                     // 关闭失效的连接
@@ -34,7 +34,7 @@ public class IdleConnectionEvictor extends Thread {
                 }
             }
         } catch (InterruptedException ex) {
-        	logger.warn("清理失效连接失败");
+            logger.warn("清理失效连接失败");
         }
     }
 

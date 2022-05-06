@@ -21,7 +21,7 @@ import com.stock4j.factory.HttpClientPool;
 import com.stock4j.factory.StockFactory;
 
 /**
- * ºÍÑ¶ĞĞÇé·şÎñÆ÷
+ * å’Œè®¯è¡Œæƒ…æœåŠ¡å™¨
  * @author qq: 2429298470<br>http://www.sigmagu.com/
  * @version 0.1
  */
@@ -37,13 +37,13 @@ public class HexunFactory extends HttpClientPool implements StockFactory{
 	@Override
 	public Quote getQuote(Stock stock)
 			throws ErrorHttpException, NullValueException, UnSupportedException {
-		throw new UnSupportedException("²»Ö§³ÖµÄÊı¾İ²Ù×÷");
+		throw new UnSupportedException("ä¸æ”¯æŒçš„æ•°æ®æ“ä½œ");
 	}
 
 	@Override
 	public Map<Stock, Quote> listQuotes(Set<Stock> stocks)
 			throws ErrorHttpException, NullValueException, UnSupportedException {
-		throw new UnSupportedException("²»Ö§³ÖµÄÊı¾İ²Ù×÷");
+		throw new UnSupportedException("ä¸æ”¯æŒçš„æ•°æ®æ“ä½œ");
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class HexunFactory extends HttpClientPool implements StockFactory{
 	}
 	
 	/**
-	 * »ñÈ¡µ±ÈÕµÄ·ÖÊ±Í¼Êı¾İ
+	 * è·å–å½“æ—¥çš„åˆ†æ—¶å›¾æ•°æ®
 	 * @param stock
 	 * @return
 	 * @throws ErrorHttpException
@@ -70,31 +70,31 @@ public class HexunFactory extends HttpClientPool implements StockFactory{
 	@Override
 	public CashFlow getCashFlow(Stock stock)
 			throws UnSupportedException, ErrorHttpException, NullValueException {
-		throw new UnSupportedException("²»Ö§³ÖµÄÊı¾İ²Ù×÷");
+		throw new UnSupportedException("ä¸æ”¯æŒçš„æ•°æ®æ“ä½œ");
 	}
 
 	@Override
 	public List<CashFlow> listCashFlows(Stock stock, int size)
 			throws UnSupportedException, ErrorHttpException, NullValueException {
-		throw new UnSupportedException("²»Ö§³ÖµÄÊı¾İ²Ù×÷");
+		throw new UnSupportedException("ä¸æ”¯æŒçš„æ•°æ®æ“ä½œ");
 	}
 
 	@Override
 	public List<Stock> suggestStocks(String hits)
 			throws UnSupportedException, ErrorHttpException {
-		throw new UnSupportedException("²»Ö§³ÖµÄÊı¾İ²Ù×÷");
+		throw new UnSupportedException("ä¸æ”¯æŒçš„æ•°æ®æ“ä½œ");
 	}
 
 	@Override
 	public Company getCompanyInformation(Stock stock)
 			throws ErrorHttpException, NullValueException, UnSupportedException {
-		throw new UnSupportedException("²»Ö§³ÖµÄÊı¾İ²Ù×÷");
+		throw new UnSupportedException("ä¸æ”¯æŒçš„æ•°æ®æ“ä½œ");
 	}
 
 	@Override
 	public List<DividentRight> listDividentRight(Stock stock)
 			throws UnSupportedException, ErrorHttpException, NullValueException {
-		throw new UnSupportedException("²»Ö§³ÖµÄÊı¾İ²Ù×÷");
+		throw new UnSupportedException("ä¸æ”¯æŒçš„æ•°æ®æ“ä½œ");
 	}
 
 }

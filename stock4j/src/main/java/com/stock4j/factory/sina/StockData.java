@@ -21,7 +21,7 @@ class StockData extends HttpClientPool{
 		String url = "http://suggest3.sinajs.cn/suggest/key=" + hits;
 		String result = super.get(url, null, "utf-8");
 		if(StringUtils.isBlank(result))
-			throw new ErrorHttpException("获取联想数据出错");
+			throw new ErrorHttpException("鑾峰彇鑱旀兂鏁版嵁鍑洪敊");
 		
 		List<Stock> stocks = new ArrayList<Stock>();
 		String body = result.substring(result.indexOf("\"") + 1, result.lastIndexOf("\""));

@@ -1,10 +1,5 @@
 package com.stock4j.factory.qq;
 
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import com.stock4j.CashFlow;
 import com.stock4j.Company;
 import com.stock4j.DividentRight;
@@ -19,74 +14,76 @@ import com.stock4j.exception.NullValueException;
 import com.stock4j.exception.UnSupportedException;
 import com.stock4j.factory.HttpClientPool;
 import com.stock4j.factory.StockFactory;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
- * 腾讯股票
+ * 鑵捐鑲＄エ
+ *
  * @author qq: 2429298470<br>http://www.sigmagu.com/
  * @version 0.1
  */
-public class QQFactory extends HttpClientPool implements StockFactory{
-	
-	@Override
-	public List<Tick> listTicks(Stock stock, PeriodType period, int size, ExRightType rhb)
-			throws UnSupportedException, ErrorHttpException, NullValueException {
-		TickData tickData = new TickData();
-		return tickData.listTicks(stock, period, size, rhb);
-	}
+public class QQFactory extends HttpClientPool implements StockFactory {
 
-	@Override
-	public Quote getQuote(Stock stock)
-			throws ErrorHttpException, NullValueException, UnSupportedException {
-		QuoteData quoteData = new QuoteData();
-		return quoteData.getQuote(stock);
-	}
+    @Override
+    public List<Tick> listTicks(Stock stock, PeriodType period, int size, ExRightType rhb)
+        throws UnSupportedException, ErrorHttpException, NullValueException {
+        TickData tickData = new TickData();
+        return tickData.listTicks(stock, period, size, rhb);
+    }
 
-	@Override
-	public Map<Stock, Quote> listQuotes(Set<Stock> stocks)
-			throws ErrorHttpException, NullValueException, UnSupportedException {
-		QuoteData quoteData = new QuoteData();
-		return quoteData.listQuotes(stocks);
-	}
+    @Override
+    public Quote getQuote(Stock stock) throws ErrorHttpException, NullValueException, UnSupportedException {
+        QuoteData quoteData = new QuoteData();
+        return quoteData.getQuote(stock);
+    }
 
-	@Override
-	public List<Transcation> listTranscations(Stock stock, LocalDateTime sdate, int size)
-			throws ErrorHttpException, NullValueException, UnSupportedException {
-		throw new UnSupportedException("不支持的数据操作");
-	}
+    @Override
+    public Map<Stock, Quote> listQuotes(Set<Stock> stocks)
+        throws ErrorHttpException, NullValueException, UnSupportedException {
+        QuoteData quoteData = new QuoteData();
+        return quoteData.listQuotes(stocks);
+    }
 
-	@Override
-	public CashFlow getCashFlow(Stock stock)
-			throws UnSupportedException, ErrorHttpException, NullValueException, UnSupportedException {
-		throw new UnSupportedException("不支持的数据操作");
-	}
+    @Override
+    public List<Transcation> listTranscations(Stock stock, LocalDateTime sdate, int size)
+        throws ErrorHttpException, NullValueException, UnSupportedException {
+        throw new UnSupportedException("涓嶆敮鎸佺殑鏁版嵁鎿嶄綔");
+    }
 
-	@Override
-	public List<CashFlow> listCashFlows(Stock stock, int size)
-			throws UnSupportedException, ErrorHttpException, NullValueException {
-		throw new UnSupportedException("不支持的数据操作");
-	}
+    @Override
+    public CashFlow getCashFlow(Stock stock) throws ErrorHttpException, NullValueException, UnSupportedException {
+        throw new UnSupportedException("涓嶆敮鎸佺殑鏁版嵁鎿嶄綔");
+    }
 
-	@Override
-	public List<Stock> suggestStocks(String hits)
-			throws UnSupportedException, ErrorHttpException {
-		throw new UnSupportedException("不支持的数据操作");
-	}
+    @Override
+    public List<CashFlow> listCashFlows(Stock stock, int size)
+        throws UnSupportedException, ErrorHttpException, NullValueException {
+        throw new UnSupportedException("涓嶆敮鎸佺殑鏁版嵁鎿嶄綔");
+    }
 
-	@Override
-	public Company getCompanyInformation(Stock stock)
-			throws ErrorHttpException, NullValueException, UnSupportedException {
-		throw new UnSupportedException("不支持的数据操作");
-	}
+    @Override
+    public List<Stock> suggestStocks(String hits) throws UnSupportedException, ErrorHttpException {
+        throw new UnSupportedException("涓嶆敮鎸佺殑鏁版嵁鎿嶄綔");
+    }
 
-	@Override
-	public List<Transcation> listTodayTranscations(Stock stock)
-			throws ErrorHttpException, NullValueException, UnSupportedException {
-		throw new UnSupportedException("不支持的数据操作");
-	}
+    @Override
+    public Company getCompanyInformation(Stock stock)
+        throws ErrorHttpException, NullValueException, UnSupportedException {
+        throw new UnSupportedException("涓嶆敮鎸佺殑鏁版嵁鎿嶄綔");
+    }
 
-	@Override
-	public List<DividentRight> listDividentRight(Stock stock)
-			throws UnSupportedException, ErrorHttpException, NullValueException {
-		throw new UnSupportedException("不支持的数据操作");
-	}
+    @Override
+    public List<Transcation> listTodayTranscations(Stock stock)
+        throws ErrorHttpException, NullValueException, UnSupportedException {
+        throw new UnSupportedException("涓嶆敮鎸佺殑鏁版嵁鎿嶄綔");
+    }
+
+    @Override
+    public List<DividentRight> listDividentRight(Stock stock)
+        throws UnSupportedException, ErrorHttpException, NullValueException {
+        throw new UnSupportedException("涓嶆敮鎸佺殑鏁版嵁鎿嶄綔");
+    }
 }

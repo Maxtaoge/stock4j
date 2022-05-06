@@ -3,31 +3,31 @@ package com.stock4j;
 import java.time.LocalDateTime;
 
 /**
- * ÅÌ¿Ú±¨¼Û
+ * ç›˜å£æŠ¥ä»·
  * @author qq: 2429298470<br>http://www.sigmagu.com/
  * @version 0.1
  */
 public class Quote {
 	private LocalDateTime time;
-	/**µ±Ç°¼Û¸ñ*/
+	/**å½“å‰ä»·æ ¼*/
 	private Double price;
-	/**³É½»¶î*/
+	/**æˆäº¤é¢*/
 	private Double amount;
-	/**×òÈÕÊÕÅÌ¼Û*/
+	/**æ˜¨æ—¥æ”¶ç›˜ä»·*/
 	private Double zs;
-	/**½ñÈÕ¿ªÅÌ¼Û*/
+	/**ä»Šæ—¥å¼€ç›˜ä»·*/
 	private Double open;
-	/**×îµÍ¼Û*/
+	/**æœ€ä½ä»·*/
 	private Double low;
-	/**×î¸ß¼Û*/
+	/**æœ€é«˜ä»·*/
 	private Double high;
-	/**½ñÈÕ×Ü³É½»Á¿£¬µ¥Î»£º¹É*/
+	/**ä»Šæ—¥æ€»æˆäº¤é‡ï¼Œå•ä½ï¼šè‚¡*/
 	private Long totalVol; 
-	/**½ñÈÕ×Ü³É½»¶î£¬µ¥Î»£ºÔª*/
+	/**ä»Šæ—¥æ€»æˆäº¤é¢ï¼Œå•ä½ï¼šå…ƒ*/
 	private Double totalAmount;
-	/**ÄÚÅÌ*/
+	/**å†…ç›˜*/
 	private Long np;
-	/**ÍâÅÌ*/
+	/**å¤–ç›˜*/
 	private Long wp;
 
 	private Double buyPrice1;
@@ -152,32 +152,32 @@ public class Quote {
 		this.buyPrice1 = buyPrice1;
 	}
 
-	/**ÂòÒ»Á¿*/
+	/**ä¹°ä¸€é‡*/
 	public Long getBuyVol1() {
 		return buyVol1;
 	}
 	
-	/**ÂòÒ»Á¿*/
+	/**ä¹°ä¸€é‡*/
 	public void setBuyVol1(Long buyVol1) {
 		this.buyVol1 = buyVol1;
 	}
 
-	/**Âò¶ş¼Û*/
+	/**ä¹°äºŒä»·*/
 	public Double getBuyPrice2() {
 		return buyPrice2;
 	}
 
-	/**Âò¶ş¼Û*/
+	/**ä¹°äºŒä»·*/
 	public void setBuyPrice2(Double buyPrice2) {
 		this.buyPrice2 = buyPrice2;
 	}
 
-	/**Âò¶şÁ¿*/
+	/**ä¹°äºŒé‡*/
 	public Long getBuyVol2() {
 		return buyVol2;
 	}
 
-	/**Âò¶şÁ¿*/
+	/**ä¹°äºŒé‡*/
 	public void setBuyVol2(Long buyVol2) {
 		this.buyVol2 = buyVol2;
 	}

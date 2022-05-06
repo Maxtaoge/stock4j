@@ -1,129 +1,135 @@
 package com.stock4j.factory.sina;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-
-import org.apache.commons.lang.StringUtils;
 import com.stock4j.Quote;
 import com.stock4j.Stock;
 import com.stock4j.exception.ErrorHttpException;
 import com.stock4j.exception.NullValueException;
 import com.stock4j.factory.HttpClientPool;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import org.apache.commons.lang.StringUtils;
 
 class QuoteData extends HttpClientPool {
 
-	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-	/**
-	 * Í¬Ê±»ñÈ¡¶àÖ§¹ÉÆ±µÄÅÌ¿Ú±¨¼Û
-	 * @param stock
-	 * @return Map<Stock, Quote>
-	 * @throws ErrorHttpException
-	 * @throws NullValueException
-	 */
-	protected Map<Stock, Quote> listQuotes(Set<Stock> stocks) throws ErrorHttpException, NullValueException {
-		Map<Stock, Quote> quotes = new HashMap<Stock, Quote>();
-		if (stocks.isEmpty())
+    /**
+     * åŒæ—¶è·å–å¤šæ”¯è‚¡ç¥¨çš„ç›˜å£æŠ¥ä»·
+     *
+     * @param stock
+     * @return Map<Stock, Quote>
+     * @throws ErrorHttpException
+     * @throws NullValueException
+     */
+    protected Map<Stock, Quote> listQuotes(Set<Stock> stocks) throws ErrorHttpException, NullValueException {
+        Map<Stock, Quote> quotes = new HashMap<Stock, Quote>();
+		if (stocks.isEmpty()) {
 			return quotes;
-
-		Stock[] stockArray = stocks.toArray(new Stock[stocks.size()]);
-		StringBuffer scodes = new StringBuffer();
-		for (Stock stock : stockArray) {
-			// ¶ÔÓÚSina, http://hq.sinajs.cn/list=sh601003,sh601001
-			scodes.append(",").append(stock.getMarket().name().toLowerCase()).append(stock.getScode());
 		}
 
-		String url = "http://hq.sinajs.cn/list=" + scodes.substring(1); // È¥µô¿ªÊ¼µÄ¡°,¡±
+        Stock[] stockArray = stocks.toArray(new Stock[stocks.size()]);
+        StringBuffer scodes = new StringBuffer();
+        for (Stock stock : stockArray) {
+            // å¯¹äºSina, http://hq.sinajs.cn/list=sh601003,sh601001
+            scodes.append(",").append(stock.getMarket().name().toLowerCase()).append(stock.getScode());
+        }
 
-		String result = super.get(url, null, "gbk");
-		if (StringUtils.isBlank(result))
-			throw new ErrorHttpException("ÎŞĞĞÇéÊı¾İ£¨ÍøÂç´íÎó£©");
+        String url = "http://hq.sinajs.cn/list=" + scodes.substring(1); // å»æ‰å¼€å§‹çš„â€œ,â€
 
-		String[] squotes = result.substring(0, result.length() - 1).split(";");
-		for (int i = 0; i < squotes.length; i++) {
-			String line = squotes[i];
-			String temp = line.substring(line.indexOf("\"") + 1, line.lastIndexOf("\""));
-			if (StringUtils.isBlank(temp))
+        String result = super.get(url, null, "gbk");
+		if (StringUtils.isBlank(result)) {
+			throw new ErrorHttpException("æ— è¡Œæƒ…æ•°æ®ï¼ˆç½‘ç»œé”™è¯¯ï¼‰");
+		}
+
+        String[] squotes = result.substring(0, result.length() - 1).split(";");
+        for (int i = 0; i < squotes.length; i++) {
+            String line = squotes[i];
+            String temp = line.substring(line.indexOf("\"") + 1, line.lastIndexOf("\""));
+			if (StringUtils.isBlank(temp)) {
 				continue;
+			}
 
-			Quote quote = parserQuoteData(temp);
-			quotes.put(stockArray[i], quote);
+            Quote quote = parserQuoteData(temp);
+            quotes.put(stockArray[i], quote);
+        }
+
+        return quotes;
+    }
+
+    /**
+     * è·å–æŸæ”¯è‚¡ç¥¨çš„ç›˜å£æŠ¥ä»·
+     *
+     * @param stock
+     * @return
+     * @throws ErrorHttpException
+     * @throws NullValueException
+     */
+    protected Quote getQuote(Stock stock) throws ErrorHttpException, NullValueException {
+        String scode = stock.getMarket().name().toLowerCase() + stock.getScode();
+        String url = "http://hq.sinajs.cn/list=" + scode;
+        Quote quote = null;
+
+        String result = super.get(url, null, "gbk");
+		if (StringUtils.isBlank(result)) {
+			throw new ErrorHttpException("æ— è¡Œæƒ…æ•°æ®ï¼ˆç½‘ç»œé”™è¯¯ï¼‰ï¼š" + stock);
 		}
 
-		return quotes;
-	}
+        result = result.substring(result.indexOf("\"") + 1, result.lastIndexOf("\""));
+		if (StringUtils.isBlank(result)) {
+			throw new NullValueException("è¯åˆ¸ä»£ç ä¸æ­£ç¡®/æ— æ•°æ®ï¼");
+		}
 
-	/**
-	 * »ñÈ¡Ä³Ö§¹ÉÆ±µÄÅÌ¿Ú±¨¼Û
-	 * @param stock
-	 * @return
-	 * @throws ErrorHttpException
-	 * @throws NullValueException
-	 */
-	protected Quote getQuote(Stock stock) throws ErrorHttpException, NullValueException {
-		String scode = stock.getMarket().name().toLowerCase() + stock.getScode();
-		String url = "http://hq.sinajs.cn/list=" + scode;
-		Quote quote = null;
+        quote = parserQuoteData(result);
+        return quote;
+    }
 
-		String result = super.get(url, null, "gbk");
-		if (StringUtils.isBlank(result))
-			throw new ErrorHttpException("ÎŞĞĞÇéÊı¾İ£¨ÍøÂç´íÎó£©£º" + stock);
+    /**
+     * è§£ææ–°æµªçš„è¡Œæƒ…æ•°æ®
+     *
+     * @param scode
+     * @param result
+     * @return
+     */
+    private Quote parserQuoteData(String result) {
+        Quote quote = new Quote();
 
-		result = result.substring(result.indexOf("\"") + 1, result.lastIndexOf("\""));
-		if (StringUtils.isBlank(result))
-			throw new NullValueException("Ö¤È¯´úÂë²»ÕıÈ·/ÎŞÊı¾İ£¡");
+        String[] field = result.split(",");
+        quote.setOpen(Double.parseDouble(field[1]));
+        quote.setZs(Double.parseDouble(field[2]));
+        quote.setPrice(Double.parseDouble(field[3]));
+        quote.setHigh(Double.parseDouble(field[4]));
+        quote.setLow(Double.parseDouble(field[5]));
+        quote.setBuyPrice1(Double.parseDouble(field[6]));
+        quote.setSellPrice1(Double.parseDouble(field[7]));
+        quote.setTotalVol(Long.parseLong(field[8]));
+        quote.setTotalAmount(Double.parseDouble(field[9]));
+        quote.setBuyVol1(Long.parseLong(field[10]));
 
-		quote = parserQuoteData(result);
-		return quote;
-	}
+        quote.setBuyVol2(Long.parseLong(field[12]));
+        quote.setBuyPrice2(Double.parseDouble(field[13]));
+        quote.setBuyVol3(Long.parseLong(field[14]));
+        quote.setBuyPrice3(Double.parseDouble(field[15]));
+        quote.setBuyVol4(Long.parseLong(field[16]));
+        quote.setBuyPrice4(Double.parseDouble(field[17]));
+        quote.setBuyVol5(Long.parseLong(field[18]));
+        quote.setBuyPrice5(Double.parseDouble(field[19]));
 
-	/**
-	 * ½âÎöĞÂÀËµÄĞĞÇéÊı¾İ
-	 * 
-	 * @param scode
-	 * @param result
-	 * @return
-	 */
-	private Quote parserQuoteData(String result) {
-		Quote quote = new Quote();
+        quote.setSellVol1(Long.parseLong(field[20])); // è‚¡æ•°
 
-		String[] field = result.split(",");
-		quote.setOpen(Double.parseDouble(field[1]));
-		quote.setZs(Double.parseDouble(field[2]));
-		quote.setPrice(Double.parseDouble(field[3]));
-		quote.setHigh(Double.parseDouble(field[4]));
-		quote.setLow(Double.parseDouble(field[5]));
-		quote.setBuyPrice1(Double.parseDouble(field[6]));
-		quote.setSellPrice1(Double.parseDouble(field[7]));
-		quote.setTotalVol(Long.parseLong(field[8]));
-		quote.setTotalAmount(Double.parseDouble(field[9]));
-		quote.setBuyVol1(Long.parseLong(field[10]));
+        quote.setSellVol2(Long.parseLong(field[22]));
+        quote.setSellPrice2(Double.parseDouble(field[23]));
+        quote.setSellVol3(Long.parseLong(field[24]));
+        quote.setSellPrice3(Double.parseDouble(field[25]));
+        quote.setSellVol4(Long.parseLong(field[26]));
+        quote.setSellPrice4(Double.parseDouble(field[27]));
+        quote.setSellVol5(Long.parseLong(field[28]));
+        quote.setSellPrice5(Double.parseDouble(field[29]));
 
-		quote.setBuyVol2(Long.parseLong(field[12]));
-		quote.setBuyPrice2(Double.parseDouble(field[13]));
-		quote.setBuyVol3(Long.parseLong(field[14]));
-		quote.setBuyPrice3(Double.parseDouble(field[15]));
-		quote.setBuyVol4(Long.parseLong(field[16]));
-		quote.setBuyPrice4(Double.parseDouble(field[17]));
-		quote.setBuyVol5(Long.parseLong(field[18]));
-		quote.setBuyPrice5(Double.parseDouble(field[19]));
+        quote.setTime(LocalDateTime.parse(field[30] + " " + field[31], formatter));
 
-		quote.setSellVol1(Long.parseLong(field[20])); // ¹ÉÊı
-
-		quote.setSellVol2(Long.parseLong(field[22]));
-		quote.setSellPrice2(Double.parseDouble(field[23]));
-		quote.setSellVol3(Long.parseLong(field[24]));
-		quote.setSellPrice3(Double.parseDouble(field[25]));
-		quote.setSellVol4(Long.parseLong(field[26]));
-		quote.setSellPrice4(Double.parseDouble(field[27]));
-		quote.setSellVol5(Long.parseLong(field[28]));
-		quote.setSellPrice5(Double.parseDouble(field[29]));
-
-		quote.setTime(LocalDateTime.parse(field[30] + " " + field[31], formatter));
-
-		return quote;
-	}
+        return quote;
+    }
 }

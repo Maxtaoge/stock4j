@@ -1,5 +1,11 @@
 package com.stock4j.factory.qq;
 
+import com.stock4j.Stock;
+import com.stock4j.Transcation;
+import com.stock4j.exception.ErrorHttpException;
+import com.stock4j.exception.NullValueException;
+import com.stock4j.factory.HttpClientPool;
+import eu.verdelhan.ta4j.Order.OrderType;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -7,72 +13,66 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
-import com.stock4j.Stock;
-import com.stock4j.Transcation;
-import com.stock4j.exception.ErrorHttpException;
-import com.stock4j.exception.NullValueException;
-import com.stock4j.factory.HttpClientPool;
 
-import eu.verdelhan.ta4j.Order.OrderType;
+public class TranscationData extends HttpClientPool {
 
-public class TranscationData extends HttpClientPool{
-	
-	private static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-	private static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-	/**
-	 * »ñÈ¡´óµ¥Êı¾İ
-	 * http://stock.finance.qq.com/sstock/list/view/dadan.php?c=sh600512&max=1000&o=1
-	 * @param stock
-	 * @return
-	 * @throws ErrorHttpException 
-	 * @throws NullValueException 
-	 */
-	protected List<Transcation> listBigTranscation(Stock stock, Double amount, Long volume, LocalDate day) throws ErrorHttpException, NullValueException{
-		logger.warn("Ê±¼ä²ÎÊıÎŞĞ§£¬½öÎªµ±ÈÕµÄ´óµ¥Êı¾İ£¬Ä¬ÈÏ´óµ¥³É½»¶î100Íò£¬´óµ¥³É½»Á¿100ÊÖ");
-		amount = (amount == null) ? 1000000 : amount;
-		volume = (volume == null) ? 100 : volume;
-		String scode = stock.getMarket().name().toLowerCase() + stock.getScode();
-		String url = "http://stock.finance.qq.com/sstock/list/view/dadan.php";
-		Map<String, String> params = new HashMap<String, String>();
-		params.put("c", scode);
-		params.put("max", "10000");
-		params.put("o", "1");
-		
-		List<Transcation> transcations = new ArrayList<Transcation>();
-		Transcation transcation;
-		String date = LocalDateTime.now().format(dateFormatter);
-		
-		String result = super.get(url, params, "utf-8");
-		String body = result.substring(result.indexOf("'") + 1, result.lastIndexOf("'"));
-		String[] lines = StringUtils.split(body, "^");
-		for(String line : lines){
-			String[] fields = line.split("~");
-			long volumeTemp = Long.parseLong(fields[3]);
-			double amountTemp = Double.parseDouble(fields[4]) * 10000;   //Ôª
-			if(volumeTemp < volume || amountTemp < amount)
-				continue;
-			
-			transcation = new Transcation();
-			transcation.setTdate(LocalDateTime.parse(date + " " + fields[1], timeFormatter));
-			transcation.setPrice(Double.parseDouble(fields[2]));
-			transcation.setVolume(volumeTemp);
-			transcation.setAmount(amountTemp);
-			
-			if(fields[5].equals("S")){
-				transcation.setOrderType(OrderType.SELL);
-			} else {
-				transcation.setOrderType(OrderType.BUY);
-			}
-			
-			transcations.add(transcation);
-		}
-		
-		return transcations;
-	}
+    /**
+     * è·å–å¤§å•æ•°æ® http://stock.finance.qq.com/sstock/list/view/dadan.php?c=sh600512&max=1000&o=1
+     *
+     * @param stock
+     * @return
+     * @throws ErrorHttpException
+     * @throws NullValueException
+     */
+    protected List<Transcation> listBigTranscation(Stock stock, Double amount, Long volume, LocalDate day)
+        throws ErrorHttpException, NullValueException {
+        logger.warn("æ—¶é—´å‚æ•°æ— æ•ˆï¼Œä»…ä¸ºå½“æ—¥çš„å¤§å•æ•°æ®ï¼Œé»˜è®¤å¤§å•æˆäº¤é¢100ä¸‡ï¼Œå¤§å•æˆäº¤é‡100æ‰‹");
+        amount = (amount == null) ? 1000000 : amount;
+        volume = (volume == null) ? 100 : volume;
+        String scode = stock.getMarket().name().toLowerCase() + stock.getScode();
+        String url = "http://stock.finance.qq.com/sstock/list/view/dadan.php";
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("c", scode);
+        params.put("max", "10000");
+        params.put("o", "1");
 
-//Ê±¼ä¶Î£ºhttp://stock.gtimg.cn/data/index.php?appn=detail&c=sh600517  ¾ö¶¨ÁËÒ³Âë
-//http://stock.gtimg.cn/data/index.php?appn=detail&action=data&c=sh600517&p=10
+        List<Transcation> transcations = new ArrayList<Transcation>();
+        Transcation transcation;
+        String date = LocalDateTime.now().format(dateFormatter);
+
+        String result = super.get(url, params, "utf-8");
+        String body = result.substring(result.indexOf("'") + 1, result.lastIndexOf("'"));
+        String[] lines = StringUtils.split(body, "^");
+        for (String line : lines) {
+            String[] fields = line.split("~");
+            long volumeTemp = Long.parseLong(fields[3]);
+            double amountTemp = Double.parseDouble(fields[4]) * 10000;   //å…ƒ
+            if (volumeTemp < volume || amountTemp < amount) {
+                continue;
+            }
+
+            transcation = new Transcation();
+            transcation.setTdate(LocalDateTime.parse(date + " " + fields[1], timeFormatter));
+            transcation.setPrice(Double.parseDouble(fields[2]));
+            transcation.setVolume(volumeTemp);
+            transcation.setAmount(amountTemp);
+
+            if (fields[5].equals("S")) {
+                transcation.setOrderType(OrderType.SELL);
+            } else {
+                transcation.setOrderType(OrderType.BUY);
+            }
+
+            transcations.add(transcation);
+        }
+
+        return transcations;
+    }
+
+    //æ—¶é—´æ®µï¼šhttp://stock.gtimg.cn/data/index.php?appn=detail&c=sh600517  å†³å®šäº†é¡µç 
+    //http://stock.gtimg.cn/data/index.php?appn=detail&action=data&c=sh600517&p=10
 }

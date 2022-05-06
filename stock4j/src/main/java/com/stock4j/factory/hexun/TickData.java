@@ -1,15 +1,5 @@
 package com.stock4j.factory.hexun;
 
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.stock4j.ExRightType;
@@ -20,99 +10,109 @@ import com.stock4j.exception.ErrorHttpException;
 import com.stock4j.exception.NullValueException;
 import com.stock4j.exception.UnSupportedException;
 import com.stock4j.factory.HttpClientPool;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.apache.commons.lang.StringUtils;
 
-class TickData extends HttpClientPool{
-	
-	private static ObjectMapper mapper = new ObjectMapper();
-	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+class TickData extends HttpClientPool {
 
-	/**
-	 * TickÊı¾İ£¬Ê±¼äµ¹Ğò
-	 * ×î´óÊıÁ¿
-	 * type : 1¡¢  5·ÖÖÓ  2¡¢ 15·ÖÖÓ  3¡¢ 30·ÖÖÓ  4¡¢ 60·ÖÖÓ  5¡¢ÈÕÏß
-	 * http://webstock.quote.hermes.hexun.com/a/kline?code=szse000001&start=20161027150000&number=-1000&type=5&callback=callback
-	 * @throws UnsupportedEncodingException 
-	 * @throws ParseException 
-	 * @throws NullValueException 
-	 */
-	public List<Tick> listTicks(Stock stock, PeriodType period, int size, ExRightType rhb)
-			throws UnSupportedException, ErrorHttpException, NullValueException {
-		if (rhb != ExRightType.NO)
-			throw new UnSupportedException("²»Ö§³Ö¸´È¨²Ù×÷");
-		if (period == PeriodType.MIN1)
-			throw new UnSupportedException("²»Ö§³Ö1·ÖÖÓKÏßÊı¾İ");
-		
-		String url = "http://webstock.quote.hermes.hexun.com/a/kline";
-		Map<String, String> params = new HashMap<String, String>();
-		
-		switch (stock.getMarket()) {
-		case SZ:
-			params.put("code", "szse" + stock.getScode());
-			break;
-		case SH:
-			params.put("code", "sse" + stock.getScode());
-			break;
-		default:
-			throw new UnsupportedOperationException("²»Ö§³ÖµÄÊĞ³¡Êı¾İ²Ù×÷");
+    private static final ObjectMapper mapper = new ObjectMapper();
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+
+    /**
+     * Tickæ•°æ®ï¼Œæ—¶é—´å€’åº æœ€å¤§æ•°é‡ type : 1ã€  5åˆ†é’Ÿ  2ã€ 15åˆ†é’Ÿ  3ã€ 30åˆ†é’Ÿ  4ã€ 60åˆ†é’Ÿ  5ã€æ—¥çº¿ http://webstock.quote.hermes.hexun.com/a/kline?code=szse000001&start=20161027150000&number=-1000&type=5&callback=callback
+     *
+     * @throws UnsupportedEncodingException
+     * @throws ParseException
+     * @throws NullValueException
+     */
+    public List<Tick> listTicks(Stock stock, PeriodType period, int size, ExRightType rhb)
+        throws UnSupportedException, ErrorHttpException, NullValueException {
+		if (rhb != ExRightType.NO) {
+			throw new UnSupportedException("ä¸æ”¯æŒå¤æƒæ“ä½œ");
 		}
-		
-		params.put("start", LocalDateTime.now().format(formatter));
-		params.put("number", String.valueOf(-size));
-		
-		//Êı¾İÖÜÆÚ
-		switch(period){
-		case DAY:
-			params.put("type", String.valueOf(5));
-			break;
-		case MIN5:
-			params.put("type", String.valueOf(1));
-			break;
-		case MIN15:
-			params.put("type", String.valueOf(2));
-			break;
-		case MIN30:
-			params.put("type", String.valueOf(3));
-			break;
-		case MIN60:
-			params.put("type", String.valueOf(4));
-			break;
-		default:
-			params.put("type", String.valueOf(5));
-			break;
+		if (period == PeriodType.MIN1) {
+			throw new UnSupportedException("ä¸æ”¯æŒ1åˆ†é’ŸKçº¿æ•°æ®");
 		}
-		
-		String result = super.get(url, params,  "utf-8");
-		if(StringUtils.isBlank(result))
-			throw new ErrorHttpException("»ñÈ¡·Ö±ÊÊı¾İ³ö´í£º" + stock);
-		
-		//½âÎö
-		result = result.substring(1, result.length() - 2);
-		List<Tick> ticks = new ArrayList<Tick>();
-		try {
-			JsonNode nodes = mapper.readTree(result);
-			JsonNode data = nodes.get("Data").get(0);
-			if(data.isNull())
-				throw new NullValueException("Ö¤È¯´úÂë²»ÕıÈ·/ÎŞÊı¾İ£¡");
-			
-			Tick tick;
-			JsonNode temp;
-			//µ¹ĞòÅÅÁĞ
-			for(int i = data.size() - 1; i >=0 ; i--){
-				temp = data.get(i);
-				tick = new Tick(period);
-				tick.setEndDateTime(LocalDateTime.parse(temp.get(0).asText(), formatter));
-				tick.setOpen(temp.get(2).asDouble() / 100);
-				tick.setClose(temp.get(3).asDouble()  / 100);
-				tick.setHigh(temp.get(4).asDouble() / 100);
-				tick.setLow(temp.get(5).asDouble() / 100);
-				tick.setTradingVolume(temp.get(6).asLong());
-				tick.setTurnover(temp.get(7).asDouble());
-				
-				ticks.add(tick);
+
+        String url = "http://webstock.quote.hermes.hexun.com/a/kline";
+        Map<String, String> params = new HashMap<String, String>();
+
+        switch (stock.getMarket()) {
+            case SZ:
+                params.put("code", "szse" + stock.getScode());
+                break;
+            case SH:
+                params.put("code", "sse" + stock.getScode());
+                break;
+            default:
+                throw new UnsupportedOperationException("ä¸æ”¯æŒçš„å¸‚åœºæ•°æ®æ“ä½œ");
+        }
+
+        params.put("start", LocalDateTime.now().format(formatter));
+        params.put("number", String.valueOf(-size));
+
+        //æ•°æ®å‘¨æœŸ
+        switch (period) {
+            case DAY:
+                params.put("type", String.valueOf(5));
+                break;
+            case MIN5:
+                params.put("type", String.valueOf(1));
+                break;
+            case MIN15:
+                params.put("type", String.valueOf(2));
+                break;
+            case MIN30:
+                params.put("type", String.valueOf(3));
+                break;
+            case MIN60:
+                params.put("type", String.valueOf(4));
+                break;
+            default:
+                params.put("type", String.valueOf(5));
+                break;
+        }
+
+        String result = super.get(url, params, "utf-8");
+		if (StringUtils.isBlank(result)) {
+			throw new ErrorHttpException("è·å–åˆ†ç¬”æ•°æ®å‡ºé”™ï¼š" + stock);
+		}
+
+        //è§£æ
+        result = result.substring(1, result.length() - 2);
+        List<Tick> ticks = new ArrayList<Tick>();
+        try {
+            JsonNode nodes = mapper.readTree(result);
+            JsonNode data = nodes.get("Data").get(0);
+			if (data.isNull()) {
+				throw new NullValueException("è¯åˆ¸ä»£ç ä¸æ­£ç¡®/æ— æ•°æ®ï¼");
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return ticks;
-	}
+
+            Tick tick;
+            JsonNode temp;
+            //å€’åºæ’åˆ—
+            for (int i = data.size() - 1; i >= 0; i--) {
+                temp = data.get(i);
+                tick = new Tick(period);
+                tick.setEndDateTime(LocalDateTime.parse(temp.get(0).asText(), formatter));
+                tick.setOpen(temp.get(2).asDouble() / 100);
+                tick.setClose(temp.get(3).asDouble() / 100);
+                tick.setHigh(temp.get(4).asDouble() / 100);
+                tick.setLow(temp.get(5).asDouble() / 100);
+                tick.setTradingVolume(temp.get(6).asLong());
+                tick.setTurnover(temp.get(7).asDouble());
+
+                ticks.add(tick);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return ticks;
+    }
 }
