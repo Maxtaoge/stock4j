@@ -26,24 +26,24 @@ class TickData extends HttpClientPool {
 	private static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 
 	/**
-	 * »ñÈ¡¹ÉÆ±µÄÈÕÏßÊı¾İ£¬»ñÈ¡Êı¾İµÄÊı¾İ¿ÉÒÔºÜ´ó
+	 * è·å–è‚¡ç¥¨çš„æ—¥çº¿æ•°æ®ï¼Œè·å–æ•°æ®çš„æ•°æ®å¯ä»¥å¾ˆå¤§
 	 * http://img1.money.126.net/data/hs/kline/day/history/2017/0600510.json
 	 * http://img1.money.126.net/data/hs/klinederc/day/history/2017/0600510.json
-	 * ºó¸´È¨
+	 * åå¤æƒ
 	 * http://img1.money.126.net/data/hs/klinederc/week/history/2017/0600510.json
-	 * ÖÜÏß ºó¸´È¨
+	 * å‘¨çº¿ åå¤æƒ
 	 * http://img1.money.126.net/data/hs/klinederc/month/history/2017/0600510.json
-	 * ÔÂÏß Êı¾İ°´Ê±¼äÉıĞò
+	 * æœˆçº¿ æ•°æ®æŒ‰æ—¶é—´å‡åº
 	 */
 	protected List<Tick> listTicks(Stock stock, PeriodType period, int size, ExRightType rhb)
 			throws ErrorHttpException, NullValueException, UnSupportedException {
 		if (period.name().startsWith("MIN"))
-			throw new UnSupportedException("²»Ö§³ÖÈÕÏß¼¶±ğÒÔÏÂµÄKÏß");
+			throw new UnSupportedException("ä¸æ”¯æŒæ—¥çº¿çº§åˆ«ä»¥ä¸‹çš„Kçº¿");
 
 		String scode = stock.getScode();
 		String rhbType = "kline";
 		String ptype = "day";
-		// KÏßÖÜÆÚ
+		// Kçº¿å‘¨æœŸ
 		switch (period) {
 		case DAY:
 			break;
@@ -61,7 +61,7 @@ class TickData extends HttpClientPool {
 			break;
 		}
 
-		// Ö¤È¯´úÂë
+		// è¯åˆ¸ä»£ç 
 		switch (stock.getMarket()) {
 		case SH:
 			scode = "0" + scode;
@@ -70,13 +70,13 @@ class TickData extends HttpClientPool {
 			scode = "1" + scode;
 			break;
 		default:
-			throw new UnSupportedException("²»Ö§³ÖµÄÊı¾İ²Ù×÷");
+			throw new UnSupportedException("ä¸æ”¯æŒçš„æ•°æ®æ“ä½œ");
 		}
 
-		// ¸´È¨·½Ê½
+		// å¤æƒæ–¹å¼
 		switch (rhb) {
 		case FORWARD:
-			throw new UnSupportedException("²»Ö§³ÖÇ°¸´È¨µÄ·½Ê½");
+			throw new UnSupportedException("ä¸æ”¯æŒå‰å¤æƒçš„æ–¹å¼");
 		case NO:
 			rhbType = "kline";
 			break;
@@ -90,7 +90,7 @@ class TickData extends HttpClientPool {
 		LocalDate date = LocalDate.now();
 		int realLen = 0;
 		List<Tick> ticks = new ArrayList<Tick>();
-		// »ñÈ¡Êı¾İ
+		// è·å–æ•°æ®
 		do {
 			String url = "http://img1.money.126.net/data/hs/" + rhbType + "/" + ptype + "/history/" + date.getYear()
 					+ "/" + scode + ".json";
@@ -121,7 +121,7 @@ class TickData extends HttpClientPool {
 					e1.printStackTrace();
 				}
 			} catch (ErrorHttpException e) {
-				break;  //ÎŞ·¨ÔÙ»ñÈ¡Êı¾İÊ±£¬Ìø³öÑ­»·
+				break;  //æ— æ³•å†è·å–æ•°æ®æ—¶ï¼Œè·³å‡ºå¾ªç¯
 			}
 		} while (realLen < size);
 

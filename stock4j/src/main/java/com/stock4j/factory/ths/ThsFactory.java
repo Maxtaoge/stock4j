@@ -21,7 +21,7 @@ import com.stock4j.factory.HttpClientPool;
 import com.stock4j.factory.StockFactory;
 
 /**
- * Í¬»¨Ë³¹ÉÆ±
+ * åŒèŠ±é¡ºè‚¡ç¥¨
  * @author qq: 2429298470<br>http://www.sigmagu.com/
  * @version 0.1
  */
@@ -31,7 +31,7 @@ public class ThsFactory extends HttpClientPool implements StockFactory{
 	public List<Tick> listTicks(Stock stock, PeriodType period, int size, ExRightType rhb)
 			throws UnSupportedException, ErrorHttpException, NullValueException {
 		if(period != PeriodType.DAY)
-			throw new UnSupportedException("²»Ö§³ÖµÄÊı¾İÖÜÆÚ²Ù×÷");
+			throw new UnSupportedException("ä¸æ”¯æŒçš„æ•°æ®å‘¨æœŸæ“ä½œ");
 		TickData tickData = new TickData();
 		return tickData.listDayTicks(stock, size, rhb);
 	}
@@ -39,43 +39,43 @@ public class ThsFactory extends HttpClientPool implements StockFactory{
 	@Override
 	public Quote getQuote(Stock stock)
 			throws ErrorHttpException, NullValueException, UnSupportedException{
-		throw new UnSupportedException("²»Ö§³ÖµÄÊı¾İ²Ù×÷");
+		throw new UnSupportedException("ä¸æ”¯æŒçš„æ•°æ®æ“ä½œ");
 	}
 
 	@Override
 	public Map<Stock, Quote> listQuotes(Set<Stock> stocks)
 			throws ErrorHttpException, NullValueException, UnSupportedException{
-		throw new UnSupportedException("²»Ö§³ÖµÄÊı¾İ²Ù×÷");
+		throw new UnSupportedException("ä¸æ”¯æŒçš„æ•°æ®æ“ä½œ");
 	}
 
 	@Override
 	public List<Transcation> listTranscations(Stock stock, LocalDateTime sdate, int size)
 			throws ErrorHttpException, NullValueException, UnSupportedException {
-		throw new UnSupportedException("²»Ö§³ÖµÄÊı¾İ²Ù×÷");
+		throw new UnSupportedException("ä¸æ”¯æŒçš„æ•°æ®æ“ä½œ");
 	}
 
 	@Override
 	public CashFlow getCashFlow(Stock stock)
 			throws UnSupportedException, ErrorHttpException, NullValueException {
-		throw new UnSupportedException("²»Ö§³ÖµÄÊı¾İ²Ù×÷");
+		throw new UnSupportedException("ä¸æ”¯æŒçš„æ•°æ®æ“ä½œ");
 	}
 
 	@Override
 	public List<Stock> suggestStocks(String hits)
 			throws UnSupportedException, ErrorHttpException, UnSupportedException {
-		throw new UnSupportedException("²»Ö§³ÖµÄÊı¾İ²Ù×÷");
+		throw new UnSupportedException("ä¸æ”¯æŒçš„æ•°æ®æ“ä½œ");
 	}
 
 	@Override
 	public List<CashFlow> listCashFlows(Stock stock, int size)
 			throws UnSupportedException, ErrorHttpException, NullValueException {
-		throw new UnSupportedException("²»Ö§³ÖµÄÊı¾İ²Ù×÷");
+		throw new UnSupportedException("ä¸æ”¯æŒçš„æ•°æ®æ“ä½œ");
 	}
 
 	@Override
 	public Company getCompanyInformation(Stock stock)
 			throws ErrorHttpException, NullValueException, UnSupportedException {
-		throw new UnSupportedException("²»Ö§³ÖµÄÊı¾İ²Ù×÷");
+		throw new UnSupportedException("ä¸æ”¯æŒçš„æ•°æ®æ“ä½œ");
 	}
 
 	@Override
@@ -88,6 +88,6 @@ public class ThsFactory extends HttpClientPool implements StockFactory{
 	@Override
 	public List<DividentRight> listDividentRight(Stock stock)
 			throws UnSupportedException, ErrorHttpException, NullValueException {
-		throw new UnSupportedException("²»Ö§³ÖµÄÊı¾İ²Ù×÷");
+		throw new UnSupportedException("ä¸æ”¯æŒçš„æ•°æ®æ“ä½œ");
 	}
 }

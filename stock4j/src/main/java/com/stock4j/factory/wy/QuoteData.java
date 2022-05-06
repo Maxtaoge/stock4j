@@ -26,7 +26,7 @@ class QuoteData extends HttpClientPool{
 	private ObjectMapper mapper = new ObjectMapper();
 	
 	/**
-	 * Í¬Ê±»ñÈ¡¶àÖ§¹ÉÆ±µÄÅÌ¿Ú±¨¼Û
+	 * åŒæ—¶è·å–å¤šæ”¯è‚¡ç¥¨çš„ç›˜å£æŠ¥ä»·
 	 * http://api.money.126.net/data/feed/0600510
 	 * @param stock
 	 * @return Map<Stock, Quote>
@@ -47,7 +47,7 @@ class QuoteData extends HttpClientPool{
 		}
 		
 		if(scodes.isEmpty())
-			throw new NullValueException("²»ÕıÈ·µÄÖ¤È¯´úÂë/ÎŞÊı¾İ");
+			throw new NullValueException("ä¸æ­£ç¡®çš„è¯åˆ¸ä»£ç /æ— æ•°æ®");
 		
 		Map<Stock, Quote> quotes = new HashMap<Stock, Quote>();
 		String url = "http://api.money.126.net/data/feed/" + StringUtils.join(scodes, ",");		
@@ -77,7 +77,7 @@ class QuoteData extends HttpClientPool{
 	
 	
 	/**
-	 * »ñÈ¡Ä³Ö§¹ÉÆ±µÄÅÌ¿Ú±¨¼Û
+	 * è·å–æŸæ”¯è‚¡ç¥¨çš„ç›˜å£æŠ¥ä»·
 	 */
 	protected Quote getQuote(Stock stock)
 			throws ErrorHttpException, NullValueException, UnSupportedException{
@@ -90,7 +90,7 @@ class QuoteData extends HttpClientPool{
 			scode = "1" + scode;
 			break;
 		default:
-			throw new UnSupportedException("²»Ö§³ÖµÄÊı¾İ²Ù×÷");
+			throw new UnSupportedException("ä¸æ”¯æŒçš„æ•°æ®æ“ä½œ");
 		}
 		
 		String url = "http://api.money.126.net/data/feed/" + scode;
@@ -100,7 +100,7 @@ class QuoteData extends HttpClientPool{
 			JsonNode nodes = mapper.readTree(body);
 			JsonNode data = nodes.get(scode);
 			if(data.isNull())
-				throw new NullValueException("Ö¤È¯´úÂë²»ÕıÈ·/ÎŞÊı¾İ£¡");
+				throw new NullValueException("è¯åˆ¸ä»£ç ä¸æ­£ç¡®/æ— æ•°æ®ï¼");
 			stock.setSname(data.get("name").asText());
 			return parserQuoteData(data);
 			
@@ -132,7 +132,7 @@ class QuoteData extends HttpClientPool{
 		quote.setBuyVol5(data.get("bidvol5").asLong());
 		quote.setBuyPrice5(data.get("bid5").asDouble());
 		
-		quote.setSellVol1(data.get("askvol1").asLong());  //¹ÉÊı
+		quote.setSellVol1(data.get("askvol1").asLong());  //è‚¡æ•°
 		
 		quote.setSellVol2(data.get("askvol2").asLong());
 		quote.setSellPrice2(data.get("ask2").asDouble());

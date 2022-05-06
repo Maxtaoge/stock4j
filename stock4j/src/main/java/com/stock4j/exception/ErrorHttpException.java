@@ -1,7 +1,7 @@
 package com.stock4j.exception;
 
 /**
- * ÍøÂçÁ¬½ÓÒì³£
+ * ç½‘ç»œè¿æ¥å¼‚å¸¸
  * @author Administrator
  */
 public class ErrorHttpException extends Exception{

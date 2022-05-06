@@ -3,42 +3,42 @@ package com.stock4j;
 import java.time.LocalDate;
 
 /**
- * ¹«Ë¾ĞÅÏ¢
+ * å…¬å¸ä¿¡æ¯
  * @author qq: 2429298470<br>http://www.sigmagu.com/
  * @version 0.1
  */
 public class Company {
-	/**ÖĞÎÄÃû*/
+	/**ä¸­æ–‡å*/
 	private String cnName;
-	/**Ó¢ÎÄÃû*/
+	/**è‹±æ–‡å*/
 	private String enName;
-	/**ÉÏÊĞÈÕÆÚ*/
+	/**ä¸Šå¸‚æ—¥æœŸ*/
 	private LocalDate ipoDate;
-	/** ·¢ĞĞ¼Û¸ñ*/
+	/** å‘è¡Œä»·æ ¼*/
 	private Double ipoPrice;
-	/**×¢²á×Ê±¾*/
+	/**æ³¨å†Œèµ„æœ¬*/
 	private Double registerCapital;
-	/**ÍøÖ·*/
+	/**ç½‘å€*/
 	private String website;
-	/**¸üÃûÀúÊ·*/
+	/**æ›´åå†å²*/
 	private String historyName;
-	/**×¢²áµØÖ·*/
+	/**æ³¨å†Œåœ°å€*/
 	private String registerAddress;
-	/**³ÉÁ¢ÈÕÆÚ*/
+	/**æˆç«‹æ—¥æœŸ*/
 	private LocalDate registerDate;
-	/**°ì¹«µØÖ·*/
+	/**åŠå…¬åœ°å€*/
 	private String officeAddress;
-	/**¹«Ë¾¼ò½é*/
+	/**å…¬å¸ç®€ä»‹*/
 	private String companyInfo;
-	/**¾­Óª·¶Î§*/
+	/**ç»è¥èŒƒå›´*/
 	private String businessScope;
 
-	/**ÖĞÎÄÃû*/
+	/**ä¸­æ–‡å*/
 	public String getCnName() {
 		return cnName;
 	}
 
-	/**ÖĞÎÄÃû*/
+	/**ä¸­æ–‡å*/
 	public void setCnName(String cnName) {
 		this.cnName = cnName;
 	}

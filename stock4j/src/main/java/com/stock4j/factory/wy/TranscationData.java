@@ -21,7 +21,7 @@ class TranscationData extends HttpClientPool{
 	private static ObjectMapper mapper = new ObjectMapper();
 	
 	/**
-	 * »ñÈ¡µ±ÈÕµÄ·ÖÊ±Í¼Êı¾İ
+	 * è·å–å½“æ—¥çš„åˆ†æ—¶å›¾æ•°æ®
 	 * http://img1.money.126.net/data/hs/time/today/0600510.json
 	 * @param stock
 	 * @return
@@ -40,7 +40,7 @@ class TranscationData extends HttpClientPool{
 			scode = "1" + scode;
 			break;
 		default:
-			throw new UnSupportedException("²»Ö§³ÖµÄÊı¾İ²Ù×÷");
+			throw new UnSupportedException("ä¸æ”¯æŒçš„æ•°æ®æ“ä½œ");
 		}
 
 		String url = "http://img1.money.126.net/data/hs/time/today/" + scode + ".json";
@@ -49,7 +49,7 @@ class TranscationData extends HttpClientPool{
 		try {
 			result = super.get(url, null, "utf-8");
 		} catch (ErrorHttpException e) {
-			throw new NullValueException("Ö¤È¯´úÂë²»ÕıÈ·/ÎŞÊı¾İ£¡");
+			throw new NullValueException("è¯åˆ¸ä»£ç ä¸æ­£ç¡®/æ— æ•°æ®ï¼");
 		}
 		
 		try {
@@ -77,9 +77,9 @@ class TranscationData extends HttpClientPool{
 	}
 	
 	/**
-	 * ´ÓÍøÒ×È¡·ÖÊ±Êı¾İ
+	 * ä»ç½‘æ˜“å–åˆ†æ—¶æ•°æ®
 	 * http://img1.money.126.net/data/hs/time/4days/0600510.json
-	 * @param stock ¹ÉÆ±£¬ÆğÊ¼Ê±¼ä
+	 * @param stock è‚¡ç¥¨ï¼Œèµ·å§‹æ—¶é—´
 	 * @return
 	 * @throws ErrorHttpException 
 	 * @throws NullValueException 
@@ -87,7 +87,7 @@ class TranscationData extends HttpClientPool{
 	 */
 	protected List<Transcation> listTranscations(Stock stock, LocalDateTime sdate, int size)
 			throws ErrorHttpException, NullValueException, UnSupportedException {
-		if(size > 242 * 5) logger.warn("³¬¹ı×î´óÊı¾İ·ÃÎÊÁ¿");
+		if(size > 242 * 5) logger.warn("è¶…è¿‡æœ€å¤§æ•°æ®è®¿é—®é‡");
 		
 		String scode = stock.getScode();		
 		switch (stock.getMarket()){
@@ -98,7 +98,7 @@ class TranscationData extends HttpClientPool{
 			scode = "1" + scode;
 			break;
 		default:
-			throw new UnSupportedException("²»Ö§³ÖµÄÊı¾İ²Ù×÷");
+			throw new UnSupportedException("ä¸æ”¯æŒçš„æ•°æ®æ“ä½œ");
 		}
 
 		String url = "http://img1.money.126.net/data/hs/time/4days/" + scode + ".json";
@@ -107,7 +107,7 @@ class TranscationData extends HttpClientPool{
 		try {
 			result = super.get(url, null, "utf-8");
 		} catch (ErrorHttpException e) {
-			throw new NullValueException("Ö¤È¯´úÂë²»ÕıÈ·/ÎŞÊı¾İ£¡");
+			throw new NullValueException("è¯åˆ¸ä»£ç ä¸æ­£ç¡®/æ— æ•°æ®ï¼");
 		}
 		
 		try {
@@ -135,7 +135,7 @@ class TranscationData extends HttpClientPool{
 				}
 			}
 			
-			transcations.addAll(listTodayTranscations(stock));  //µ±ÈÕµÄ
+			transcations.addAll(listTodayTranscations(stock));  //å½“æ—¥çš„
 		} catch (IOException e) {
 			logger.warn(e.getMessage());
 		}

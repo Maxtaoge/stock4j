@@ -4,7 +4,7 @@ import java.util.List;
 import eu.verdelhan.ta4j.BaseTimeSeries;
 
 /**
- * KÏßÊı¾İ£¨¿ªÅÌ¼Û£¬×î¸ß¼Û£¬×îµÍ¼Û£¬ÊÕÅÌ¼Û£©Ê±¼äĞòÁĞ£¬Çë²é¿´{@link BaseTimeSeries}
+ * Kçº¿æ•°æ®ï¼ˆå¼€ç›˜ä»·ï¼Œæœ€é«˜ä»·ï¼Œæœ€ä½ä»·ï¼Œæ”¶ç›˜ä»·ï¼‰æ—¶é—´åºåˆ—ï¼Œè¯·æŸ¥çœ‹{@link BaseTimeSeries}
  * @author qq: 2429298470<br>http://www.sigmagu.com/
  * @version 0.1
  */
@@ -17,7 +17,7 @@ public class TickTimeSeries extends BaseTimeSeries{
 	}
 	
 	/**
-	 * ĞĞÇéÊı¾İµÄÊ±¼äĞòÁĞ
+	 * è¡Œæƒ…æ•°æ®çš„æ—¶é—´åºåˆ—
 	 * @param ticks
 	 */
 	public TickTimeSeries(List<Tick> ticks){

@@ -21,7 +21,7 @@ import com.stock4j.factory.HttpClientPool;
 import com.stock4j.factory.StockFactory;
 
 /**
- * 网易股票
+ * 缃戞槗鑲＄エ
  * @author qq: 2429298470<br>http://www.sigmagu.com/
  * @version 0.1
  */
@@ -65,13 +65,13 @@ public class WangyiFactory extends HttpClientPool implements StockFactory{
 	@Override
 	public CashFlow getCashFlow(Stock stock)
 			throws UnSupportedException, ErrorHttpException, NullValueException {
-		throw new UnSupportedException("不支持的市场数据操作");
+		throw new UnSupportedException("涓嶆敮鎸佺殑甯傚満鏁版嵁鎿嶄綔");
 	}
 
 	@Override
 	public List<CashFlow> listCashFlows(Stock stock, int size)
 			throws UnSupportedException, ErrorHttpException, NullValueException {
-		throw new UnSupportedException("不支持的数据操作");
+		throw new UnSupportedException("涓嶆敮鎸佺殑鏁版嵁鎿嶄綔");
 	}
 
 	@Override
@@ -83,7 +83,7 @@ public class WangyiFactory extends HttpClientPool implements StockFactory{
 	@Override
 	public Company getCompanyInformation(Stock stock)
 			throws ErrorHttpException, NullValueException, UnSupportedException {
-		throw new UnSupportedException("不支持的数据操作");
+		throw new UnSupportedException("涓嶆敮鎸佺殑鏁版嵁鎿嶄綔");
 	}
 
 

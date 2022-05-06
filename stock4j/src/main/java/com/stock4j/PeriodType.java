@@ -1,21 +1,21 @@
 package com.stock4j;
 
 /**
- * 数据周期
+ * 鏁版嵁鍛ㄦ湡
  * @author qq: 2429298470<br>http://www.sigmagu.com/
  * @version 0.1
  */
 public enum PeriodType {
 
-	YEAR("年线"),
-	MONTH("月线"),
-	WEEK("周线"),
-	DAY("日线"),
-	MIN60("60分钟"),
-	MIN30("30分钟"),
-	MIN15("15分钟"),
-	MIN5("5分钟"),
-	MIN1("1分钟");
+	YEAR("骞寸嚎"),
+	MONTH("鏈堢嚎"),
+	WEEK("鍛ㄧ嚎"),
+	DAY("鏃ョ嚎"),
+	MIN60("60鍒嗛挓"),
+	MIN30("30鍒嗛挓"),
+	MIN15("15鍒嗛挓"),
+	MIN5("5鍒嗛挓"),
+	MIN1("1鍒嗛挓");
 
 	private String name;
 
@@ -32,7 +32,7 @@ public enum PeriodType {
 	}
 	
 	/**
-	 * 是否为日线以下的周期
+	 * 鏄惁涓烘棩绾夸互涓嬬殑鍛ㄦ湡
 	 * @return
 	 */
 	public boolean isBelowDay(){

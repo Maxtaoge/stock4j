@@ -1,18 +1,18 @@
 package com.stock4j;
 
 /**
- * ¹ÉÆ±´úÂëĞÅÏ¢
+ * è‚¡ç¥¨ä»£ç ä¿¡æ¯
  * @author qq: 2429298470<br>http://www.sigmagu.com/
  * @version 0.1
  */
 public class Stock {
-	/**¹ÉÆ±´úÂë*/
+	/**è‚¡ç¥¨ä»£ç */
 	private String scode;
-	/**Ö¤È¯Ãû³Æ*/
+	/**è¯åˆ¸åç§°*/
 	private String sname;
-	/**Æ´Òô´úÂë*/
+	/**æ‹¼éŸ³ä»£ç */
 	private String abbr;
-	/**ËùÊôÊĞ³¡*/
+	/**æ‰€å±å¸‚åœº*/
 	private MarketType market;
 
 	public Stock() {
@@ -20,7 +20,7 @@ public class Stock {
 	}
 	
 	/**
-	 * @param scode£¬×Ô¶¯ÅĞ¶Ï²ÎÊı£¬½øĞĞÊĞ³¡µÄÉèÖÃ
+	 * @param scodeï¼Œè‡ªåŠ¨åˆ¤æ–­å‚æ•°ï¼Œè¿›è¡Œå¸‚åœºçš„è®¾ç½®
 	 */
 	public Stock(String scode) {
 		super();
@@ -49,7 +49,7 @@ public class Stock {
 	}
 
 	/**
-	 * º¬ÊĞ³¡µÄÖ¤È¯´úÂë
+	 * å«å¸‚åœºçš„è¯åˆ¸ä»£ç 
 	 * @return
 	 */
 	public String getFullScode() {
@@ -57,19 +57,19 @@ public class Stock {
 	}
 
 	/**
-	 * ¹ÉÆ±´úÂë
+	 * è‚¡ç¥¨ä»£ç 
 	 * @param scode
 	 */
 	public void setScode(String scode) {
 		this.scode = scode;
 	}
 
-	/**Ö¤È¯Ãû³Æ*/
+	/**è¯åˆ¸åç§°*/
 	public String getSname() {
 		return sname;
 	}
 
-	/**Ö¤È¯Ãû³Æ*/
+	/**è¯åˆ¸åç§°*/
 	public void setSname(String sname) {
 		this.sname = sname;
 	}

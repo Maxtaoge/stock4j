@@ -5,20 +5,20 @@ import java.time.LocalDateTime;
 import eu.verdelhan.ta4j.Order.OrderType;
 
 /**
- * ÉÁµçÍ¼·ÖÊ±Êı¾İ
+ * é—ªç”µå›¾åˆ†æ—¶æ•°æ®
  * @author qq: 2429298470<br>http://www.sigmagu.com/
  * @version 0.1
  */
 public class Transcation {
 	private LocalDateTime tdate;
 	private Double price;
-	/**³É½»¶î*/
+	/**æˆäº¤é¢*/
 	private Double amount;
-	/**³É½»Á¿*/
+	/**æˆäº¤é‡*/
 	private Long volume;
-	/**¾ù¼Û*/
+	/**å‡ä»·*/
 	private Double meanPrice;
-	/**½»Ò×ÀàĞÍ*/
+	/**äº¤æ˜“ç±»å‹*/
 	private OrderType orderType;
 
 	public LocalDateTime getTdate() {

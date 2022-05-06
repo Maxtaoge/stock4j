@@ -22,12 +22,12 @@ class TickData extends HttpClientPool{
 	private ObjectMapper mapper = new ObjectMapper();
 
 	/**
-	 * »ñÈ¡¹ÉÆ±µÄÈÕÏßÊı¾İ
-	 * https://d.10jqka.com.cn/v2/line/sz_002028/00/last365.js ÄêÏß
+	 * è·å–è‚¡ç¥¨çš„æ—¥çº¿æ•°æ®
+	 * https://d.10jqka.com.cn/v2/line/sz_002028/00/last365.js å¹´çº¿
 	 * https://d.10jqka.com.cn/v2/line/sz_002028/00/last31.js
 	 * @param stock
-	 * @param size   ÊıÁ¿
-	 * @param rhb  ¸´È¨·½Ê½
+	 * @param size   æ•°é‡
+	 * @param rhb  å¤æƒæ–¹å¼
 	 * @return
 	 * @throws ErrorHttpException
 	 * @throws NullValueException
@@ -35,7 +35,7 @@ class TickData extends HttpClientPool{
 	protected List<Tick> listDayTicks(Stock stock, int size, ExRightType rhb)
 			throws ErrorHttpException, NullValueException {
 		if(size <= 0){
-			logger.warn("´íÎóµÄ²ÎÊı£ºÊıÁ¿Ğ¡ÓÚÁã");
+			logger.warn("é”™è¯¯çš„å‚æ•°ï¼šæ•°é‡å°äºé›¶");
 			return null;
 		}
 
@@ -61,7 +61,7 @@ class TickData extends HttpClientPool{
 		
 		String result = super.get(url, null, "utf-8");
 		if (StringUtils.isBlank(result))
-			throw new NullValueException("Ö¤È¯´úÂë²»ÕıÈ·/ÎŞÊı¾İ£¡");
+			throw new NullValueException("è¯åˆ¸ä»£ç ä¸æ­£ç¡®/æ— æ•°æ®ï¼");
 
 		String body = result.substring(result.indexOf("{"), result.lastIndexOf("}") + 1);
 		List<Tick> ticks = new ArrayList<Tick>();
@@ -91,7 +91,7 @@ class TickData extends HttpClientPool{
 	}
 
 	/**
-	 * »ñÈ¡µ±ÈÕµÄKÏßÊı¾İ
+	 * è·å–å½“æ—¥çš„Kçº¿æ•°æ®
 	 * @return
 	 * @throws ErrorHttpException
 	 * @throws NullValueException
@@ -118,13 +118,13 @@ class TickData extends HttpClientPool{
 		url += "/today.js";
 		String result = super.get(url, null, "utf-8");
 		if (StringUtils.isBlank(result))
-			throw new NullValueException("Ö¤È¯´úÂë²»ÕıÈ·/ÎŞÊı¾İ£¡");
+			throw new NullValueException("è¯åˆ¸ä»£ç ä¸æ­£ç¡®/æ— æ•°æ®ï¼");
 
 		String body = result.substring(result.indexOf("{"), result.lastIndexOf("}") + 1);
 		try{
 			JsonNode nodes = mapper.readTree(body);
 			JsonNode data = nodes.get(scode);
-			Tick tick = new Tick();  //ÈÕÏß
+			Tick tick = new Tick();  //æ—¥çº¿
 			tick.setOpen(data.get("7").asDouble());
 			tick.setHigh(data.get("8").asDouble());
 			tick.setLow(data.get("9").asDouble());

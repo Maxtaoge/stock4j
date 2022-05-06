@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
 import com.stock4j.exception.ErrorHttpException;
 
 /**
- * ÍøÂçÁ¬½Ó³Ø
+ * ç½‘ç»œè¿æ¥æ± 
  * @author qq: 2429298470<br>http://www.sigmagu.com/
  * @version 0.1
  */
@@ -35,21 +35,21 @@ public class HttpClientPool {
 	private static PoolingHttpClientConnectionManager cm = null;
 	private static CloseableHttpClient httpClient = null;
 	private static IdleConnectionEvictor evictor = null;
-	// ´ÓÁ¬½Ó³ØÖĞ»ñÈ¡µ½Á¬½ÓµÄ×î³¤Ê±¼ä
+	// ä»è¿æ¥æ± ä¸­è·å–åˆ°è¿æ¥çš„æœ€é•¿æ—¶é—´
 	private static int connectionRequestTimeout = Integer.parseInt(System.getProperty("stock4j.connectionRequestTimeout", "5000"));
-	// ÉèÖÃÁ´½Ó³¬Ê±
+	// è®¾ç½®é“¾æ¥è¶…æ—¶
 	private static int connectTimeout = Integer.parseInt(System.getProperty("stock4j.connectTimeout", "5000"));
-	// Êı¾İ´«ÊäµÄ×î³¤Ê±¼ä
+	// æ•°æ®ä¼ è¾“çš„æœ€é•¿æ—¶é—´
 	private static int socketTimeout = Integer.parseInt(System.getProperty("stock4j.socketTimeout", "30000"));
-	// ÉèÖÃÁ¬½Ó×ÜÊı
+	// è®¾ç½®è¿æ¥æ€»æ•°
 	private static int maxTotal = Integer.parseInt(System.getProperty("stock4j.maxTotal", "200"));
-	// ÉèÖÃÃ¿¸öµØÖ·µÄ²¢·¢Êı
+	// è®¾ç½®æ¯ä¸ªåœ°å€çš„å¹¶å‘æ•°
 	private static int defaultMaxPerRoute = Integer.parseInt(System.getProperty("stock4j.defaultMaxPerRoute", "100"));
-	// ÉèÖÃ¶¨Ê±Çå³ıÎŞĞ§Á´½ÓÊ±¼ä£¬1·ÖÖÓ
+	// è®¾ç½®å®šæ—¶æ¸…é™¤æ— æ•ˆé“¾æ¥æ—¶é—´ï¼Œ1åˆ†é’Ÿ
 	private static int maxIdleTime = Integer.parseInt(System.getProperty("stock4j.maxIdleTime", "60000"));
 
 	/**
-	 * HttpClientPoolÅäÖÃ
+	 * HttpClientPoolé…ç½®
 	 */
 	public void config() {
 		cm = new PoolingHttpClientConnectionManager();
@@ -59,17 +59,17 @@ public class HttpClientPool {
 				.setConnectionRequestTimeout(connectionRequestTimeout)
 				.setConnectTimeout(connectTimeout).build();
 		httpClient = HttpClients.custom().setConnectionManager(cm).setDefaultRequestConfig(requestConfig).build();
-		//¶¨ÆÚÇåÀíÎŞĞ§µÄÁ¬½Ó
+		//å®šæœŸæ¸…ç†æ— æ•ˆçš„è¿æ¥
 		evictor = new IdleConnectionEvictor(cm, maxIdleTime);
 		evictor.start();
 	}
 	
 	/**
-	 * HTTP Get »ñÈ¡ÄÚÈİ
-	 * @param url ÇëÇóµÄurlµØÖ· ?Ö®Ç°µÄµØÖ·
-	 * @param params  ÇëÇóµÄ²ÎÊı
-	 * @param charset   ±àÂë¸ñÊ½
-	 * @return Ò³ÃæÄÚÈİ
+	 * HTTP Get è·å–å†…å®¹
+	 * @param url è¯·æ±‚çš„urlåœ°å€ ?ä¹‹å‰çš„åœ°å€
+	 * @param params  è¯·æ±‚çš„å‚æ•°
+	 * @param charset   ç¼–ç æ ¼å¼
+	 * @return é¡µé¢å†…å®¹
 	 * @throws ErrorHttpException
 	 */
 	public String get(String url, Map<String, String> params, String charset) throws ErrorHttpException {
@@ -91,7 +91,7 @@ public class HttpClientPool {
 			int statusCode = response.getStatusLine().getStatusCode();
 			if (statusCode != 200) {
 				httpGet.abort();
-				throw new ErrorHttpException("»ñÈ¡Êı¾İÊ§°Ü£º" + statusCode);
+				throw new ErrorHttpException("è·å–æ•°æ®å¤±è´¥ï¼š" + statusCode);
 			}
 			HttpEntity entity = response.getEntity();
 			if (entity != null) {
@@ -99,7 +99,7 @@ public class HttpClientPool {
 			}
 			EntityUtils.consume(entity);
 		} catch (ParseException | IOException e) {
-			throw new ErrorHttpException("»ñÈ¡Êı¾İÊ§°Ü£º" + e.getMessage());
+			throw new ErrorHttpException("è·å–æ•°æ®å¤±è´¥ï¼š" + e.getMessage());
 		} finally {
 			try {
 				if (response != null)
@@ -112,11 +112,11 @@ public class HttpClientPool {
 	}
 
 	/**
-	 * HTTP Post »ñÈ¡ÄÚÈİ
-	 * @param url  ÇëÇóµÄurlµØÖ· ?Ö®Ç°µÄµØÖ·
-	 * @param params  ÇëÇóµÄ²ÎÊı
-	 * @param charset  ±àÂë¸ñÊ½
-	 * @return Ò³ÃæÄÚÈİ
+	 * HTTP Post è·å–å†…å®¹
+	 * @param url  è¯·æ±‚çš„urlåœ°å€ ?ä¹‹å‰çš„åœ°å€
+	 * @param params  è¯·æ±‚çš„å‚æ•°
+	 * @param charset  ç¼–ç æ ¼å¼
+	 * @return é¡µé¢å†…å®¹
 	 * @throws ErrorHttpException
 	 */
 	public String post(String url, Map<String, String> params, String charset) throws ErrorHttpException {
@@ -142,7 +142,7 @@ public class HttpClientPool {
 			int statusCode = response.getStatusLine().getStatusCode();
 			if (statusCode != 200) {
 				httpPost.abort();
-				throw new ErrorHttpException("»ñÈ¡Êı¾İÊ§°Ü£º" + statusCode);
+				throw new ErrorHttpException("è·å–æ•°æ®å¤±è´¥ï¼š" + statusCode);
 			}
 			HttpEntity entity = response.getEntity();
 			if (entity != null) {
@@ -150,7 +150,7 @@ public class HttpClientPool {
 			}
 			EntityUtils.consume(entity);
 		} catch (ParseException | IOException e) {
-			throw new ErrorHttpException("»ñÈ¡Êı¾İÊ§°Ü£º" + e.getMessage());
+			throw new ErrorHttpException("è·å–æ•°æ®å¤±è´¥ï¼š" + e.getMessage());
 		} finally {
 			try {
 				if (response != null)

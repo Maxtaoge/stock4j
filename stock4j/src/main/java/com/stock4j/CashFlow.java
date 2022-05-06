@@ -3,38 +3,38 @@ package com.stock4j;
 import java.time.LocalDate;
 
 /**
- * ×Ê½ğÁ÷Ïò
+ * èµ„é‡‘æµå‘
  * @author QQ2429298470
  * see(http://www.sigmagu.com/)
  */
 public class CashFlow {
 	
-	/**ÈÕÆÚ*/
+	/**æ—¥æœŸ*/
 	private LocalDate date;
-	/**Ö÷Á¦Á÷Èë*/
+	/**ä¸»åŠ›æµå…¥*/
 	private Double zin;
-	/**Ö÷Á¦Á÷³ö*/
+	/**ä¸»åŠ›æµå‡º*/
 	private Double zout;
-	/**Ö÷Á¦¾»Á÷Èë*/
+	/**ä¸»åŠ›å‡€æµå…¥*/
 	private Double zjin;
-	/**ÖĞµ¥Á÷Èë*/
+	/**ä¸­å•æµå…¥*/
 	private Double min;
-	/**ÖĞµ¥Á÷³ö*/
+	/**ä¸­å•æµå‡º*/
 	private Double mout;
-	/**ÖĞµ¥Á÷Èë¾»¶î*/
+	/**ä¸­å•æµå…¥å‡€é¢*/
 	private Double mjin;
-	/**Ğ¡µ¥Á÷Èë*/
+	/**å°å•æµå…¥*/
 	private Double sin;
-	/**Ğ¡µ¥Á÷³ö*/
+	/**å°å•æµå‡º*/
 	private Double sout;
-	/**Ğ¡µ¥Á÷Èë¾»¶î*/
+	/**å°å•æµå…¥å‡€é¢*/
 	private Double sjin;
 	
 	public CashFlow() {
 		super();
 	}
 
-	/**ÈÕÆÚ*/
+	/**æ—¥æœŸ*/
 	public LocalDate getDate() {
 		return date;
 	}
@@ -43,72 +43,72 @@ public class CashFlow {
 		this.date = date;
 	}
 
-	/**Ö÷Á¦Á÷Èë*/
+	/**ä¸»åŠ›æµå…¥*/
 	public Double getZin() {
 		return zin;
 	}
 	
-	/**Ö÷Á¦Á÷Èë*/
+	/**ä¸»åŠ›æµå…¥*/
 	public void setZin(Double zin) {
 		this.zin = zin;
 	}
 
-	/**Ö÷Á¦Á÷³ö*/
+	/**ä¸»åŠ›æµå‡º*/
 	public Double getZout() {
 		return zout;
 	}
 
-	/**Ö÷Á¦Á÷³ö*/
+	/**ä¸»åŠ›æµå‡º*/
 	public void setZout(Double zout) {
 		this.zout = zout;
 	}
 	
-	/**Ö÷Á¦¾»Á÷Èë*/
+	/**ä¸»åŠ›å‡€æµå…¥*/
 	public Double getZjin() {
 		return zjin;
 	}
 
-	/**Ö÷Á¦¾»Á÷Èë*/
+	/**ä¸»åŠ›å‡€æµå…¥*/
 	public void setZjin(Double zjin) {
 		this.zjin = zjin;
 	}
 	
-	/**Ğ¡µ¥Á÷Èë*/
+	/**å°å•æµå…¥*/
 	public Double getMin() {
 		return min;
 	}
 
-	/**ÖĞµ¥Á÷Èë*/
+	/**ä¸­å•æµå…¥*/
 	public void setMin(Double min) {
 		this.min = min;
 	}
 
-	/**ÖĞµ¥Á÷³ö*/
+	/**ä¸­å•æµå‡º*/
 	public Double getMout() {
 		return mout;
 	}
 
-	/**ÖĞµ¥Á÷³ö*/
+	/**ä¸­å•æµå‡º*/
 	public void setMout(Double mout) {
 		this.mout = mout;
 	}
 	
-	/**ÖĞµ¥¾»Á÷Èë*/
+	/**ä¸­å•å‡€æµå…¥*/
 	public Double getMjin() {
 		return mjin;
 	}
 
-	/**ÖĞµ¥Á÷Èë*/
+	/**ä¸­å•æµå…¥*/
 	public void setMjin(Double mjin) {
 		this.mjin = mjin;
 	}
 
-	/**ÖĞµ¥Á÷Èë*/
+	/**ä¸­å•æµå…¥*/
 	public Double getSin() {
 		return sin;
 	}
 
-	/**ÖĞµ¥Á÷Èë*/
+	/**ä¸­å•æµå…¥*/
 	public void setSin(Double sin) {
 		this.sin = sin;
 	}

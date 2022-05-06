@@ -19,7 +19,7 @@ import com.stock4j.exception.NullValueException;
 import com.stock4j.exception.UnSupportedException;
 
 /**
- * ¹ÉÆ±Êı¾İ¹¤³§½Ó¿Ú
+ * è‚¡ç¥¨æ•°æ®å·¥å‚æ¥å£
  * @author qq: 2429298470<br>http://www.sigmagu.com/
  * @version 0.1
  */
@@ -28,12 +28,12 @@ public interface StockFactory {
 	void config();
 	
 	/**
-	 * »ñÈ¡ĞĞÇéÊı¾İ
-	 * @param stock ´úÂë£¨¹ÉÆ±²»´øÇ°×º£©¡¢º¬ÊĞ³¡
-	 * @param period  Êı¾İÖÜÆÚ
-	 * @param size   Êı¾İ´óĞ¡
-	 * @param rhb   ÊÇ·ñ¸´È¨
-	 * @return   ·µ»ØKÏßÊı¾İ¼¯ºÏ£¬°´ÈÕÆÚÉıĞò
+	 * è·å–è¡Œæƒ…æ•°æ®
+	 * @param stock ä»£ç ï¼ˆè‚¡ç¥¨ä¸å¸¦å‰ç¼€ï¼‰ã€å«å¸‚åœº
+	 * @param period  æ•°æ®å‘¨æœŸ
+	 * @param size   æ•°æ®å¤§å°
+	 * @param rhb   æ˜¯å¦å¤æƒ
+	 * @return   è¿”å›Kçº¿æ•°æ®é›†åˆï¼ŒæŒ‰æ—¥æœŸå‡åº
 	 * @throws UnSupportedException
 	 * @throws ErrorHttpException
 	 * @throws NullValueException
@@ -42,7 +42,7 @@ public interface StockFactory {
 			throws UnSupportedException, ErrorHttpException, NullValueException;
 
 	/**
-	 * »ñÈ¡Ä³Ö§¹ÉÆ±µÄÅÌ¿Ú±¨¼Û
+	 * è·å–æŸæ”¯è‚¡ç¥¨çš„ç›˜å£æŠ¥ä»·
 	 * @param stock
 	 * @return Quote
 	 * @throws ErrorHttpException 
@@ -52,7 +52,7 @@ public interface StockFactory {
 			throws ErrorHttpException, NullValueException, UnSupportedException;
 
 	/**
-	 * Í¬Ê±»ñÈ¡¶àÖ§¹ÉÆ±µÄÅÌ¿Ú±¨¼Û
+	 * åŒæ—¶è·å–å¤šæ”¯è‚¡ç¥¨çš„ç›˜å£æŠ¥ä»·
 	 * @param stock
 	 * @return Map<Stock, Quote>
 	 * @throws ErrorHttpException 
@@ -62,10 +62,10 @@ public interface StockFactory {
 			throws ErrorHttpException, NullValueException, UnSupportedException;
 
 	/**
-	 * »ñÈ¡·ÖÊ±Êı¾İ
+	 * è·å–åˆ†æ—¶æ•°æ®
 	 * @param stock
-	 * @param sdate  ¿ªÊ¼Ê±¼ä
-	 * @param size   Êı¾İ´óĞ¡
+	 * @param sdate  å¼€å§‹æ—¶é—´
+	 * @param size   æ•°æ®å¤§å°
 	 * @return List<Transcation>
 	 * @throws ErrorHttpException 
 	 * @throws NullValueException 
@@ -75,7 +75,7 @@ public interface StockFactory {
 	
 	
 	/**
-	 * »ñÈ¡µ±ÈÕµÄ·ÖÊ±Êı¾İ
+	 * è·å–å½“æ—¥çš„åˆ†æ—¶æ•°æ®
 	 * @param stock
 	 * @return
 	 * @throws NullValueException
@@ -85,7 +85,7 @@ public interface StockFactory {
 			throws ErrorHttpException, NullValueException, UnSupportedException;
 
 	/**
-	 * »ñÈ¡Ä³Ö»¹ÉÆ±µÄµ±ÈÕ×Ê½ğÁ÷Ïò
+	 * è·å–æŸåªè‚¡ç¥¨çš„å½“æ—¥èµ„é‡‘æµå‘
 	 * @param stock
 	 * @return
 	 * @throws UnSupportedException
@@ -96,7 +96,7 @@ public interface StockFactory {
 			throws UnSupportedException, ErrorHttpException, NullValueException;
 
 	/**
-	 * »ñÈ¡Ä³Ö»¹ÉÆ±µÄÀúÊ·×Ê½ğÁ÷Ïò
+	 * è·å–æŸåªè‚¡ç¥¨çš„å†å²èµ„é‡‘æµå‘
 	 * @param stock
 	 * @return
 	 * @throws UnSupportedException
@@ -107,7 +107,7 @@ public interface StockFactory {
 			throws UnSupportedException, ErrorHttpException, NullValueException;
 
 	/**
-	 * Í¨¹ı´úÂëºÍËõĞ´ÁªÏë¹ÉÆ±
+	 * é€šè¿‡ä»£ç å’Œç¼©å†™è”æƒ³è‚¡ç¥¨
 	 * @param hits
 	 * @return
 	 * @throws UnSupportedException
@@ -117,7 +117,7 @@ public interface StockFactory {
 			throws UnSupportedException, ErrorHttpException;
 	
 	/**
-	 * Ä³¹ÉÆ±µÄ¹«Ë¾¼òÒªĞÅÏ¢
+	 * æŸè‚¡ç¥¨çš„å…¬å¸ç®€è¦ä¿¡æ¯
 	 * @param stock
 	 * @return
 	 * @throws ErrorHttpException
@@ -127,7 +127,7 @@ public interface StockFactory {
 			throws ErrorHttpException, NullValueException, UnSupportedException;
 	
 	/**
-	 * »ñÈ¡¹ÉÆ±µÄÈ¨Ï¢Êı¾İ
+	 * è·å–è‚¡ç¥¨çš„æƒæ¯æ•°æ®
 	 * @param stock
 	 * @return
 	 * @throws UnSupportedException

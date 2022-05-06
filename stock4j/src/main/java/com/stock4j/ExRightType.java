@@ -1,15 +1,15 @@
 package com.stock4j;
 
 /**
- * ¸´È¨ÀàĞÍ£ºÇ°¸´È¨¡¢ºó¸´È¨¡¢²»¸´È¨
+ * å¤æƒç±»å‹ï¼šå‰å¤æƒã€åå¤æƒã€ä¸å¤æƒ
  * @author qq: 2429298470<br>http://www.sigmagu.com/
  * @version 0.1
  */
 public enum ExRightType {
 
-	NO("²»¸´È¨"),
-	FORWARD("Ç°¸´È¨"),
-	BACKWARD("ºó¸´È¨");
+	NO("ä¸å¤æƒ"),
+	FORWARD("å‰å¤æƒ"),
+	BACKWARD("åå¤æƒ");
 
 	private String name;
 

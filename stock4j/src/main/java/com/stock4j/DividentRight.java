@@ -3,10 +3,10 @@ package com.stock4j;
 import java.time.LocalDate;
 
 /**
- * È¨Ï¢Êı¾İ£ºÈÕÆÚ,Ã¿¹ÉËÍ¹É,Ã¿¹ÉÅä¹É,Åä¹É¼Û,Ã¿¹ÉºìÀû
- * XDÎªexit dividentµÄËõĞ´£¬³ıÏ¢
- * XRÎªexit rightµÄËõĞ´,³ıÈ¨
- * DRÎªexit divident and right,³ıÈ¨³ıÏ¢
+ * æƒæ¯æ•°æ®ï¼šæ—¥æœŸ,æ¯è‚¡é€è‚¡,æ¯è‚¡é…è‚¡,é…è‚¡ä»·,æ¯è‚¡çº¢åˆ©
+ * XDä¸ºexit dividentçš„ç¼©å†™ï¼Œé™¤æ¯
+ * XRä¸ºexit rightçš„ç¼©å†™,é™¤æƒ
+ * DRä¸ºexit divident and right,é™¤æƒé™¤æ¯
  * @author qq: 2429298470<br>http://www.sigmagu.com/
  * @version 0.1
  */

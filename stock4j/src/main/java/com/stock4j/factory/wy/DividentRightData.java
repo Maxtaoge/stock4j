@@ -19,7 +19,7 @@ import com.stock4j.factory.HttpClientPool;
 class DividentRightData extends HttpClientPool{
 
 	/**
-	 * »ñÈ¡¹ÉÆ±µÄÈ¨Ï¢Êı¾İ
+	 * è·å–è‚¡ç¥¨çš„æƒæ¯æ•°æ®
 	 * http://vip.stock.finance.sina.com.cn/corp/go.php/vISSUE_ShareBonus/stockid/600517.phtml
 	 * http://quotes.money.163.com/f10/fhpg_600517.html
 	 * @param stock

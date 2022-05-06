@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * ¶¨ÆÚÇåÀíÎŞĞ§µÄhttpÁ¬½Ó
+ * å®šæœŸæ¸…ç†æ— æ•ˆçš„httpè¿æ¥
  */
 public class IdleConnectionEvictor extends Thread {
 	
@@ -26,20 +26,20 @@ public class IdleConnectionEvictor extends Thread {
     public void run() {
         try {
             while (!shutdown) {
-            	logger.info("---------¶¨ÆÚÇåÀíÎŞĞ§µÄÁ¬½Ó-------------");
+            	logger.info("---------å®šæœŸæ¸…ç†æ— æ•ˆçš„è¿æ¥-------------");
                 synchronized (this) {
                     wait(waitTime);
-                    // ¹Ø±ÕÊ§Ğ§µÄÁ¬½Ó
+                    // å…³é—­å¤±æ•ˆçš„è¿æ¥
                     connMgr.closeExpiredConnections();
                 }
             }
         } catch (InterruptedException ex) {
-        	logger.warn("ÇåÀíÊ§Ğ§Á¬½ÓÊ§°Ü");
+        	logger.warn("æ¸…ç†å¤±æ•ˆè¿æ¥å¤±è´¥");
         }
     }
 
     /**
-     * Ïú»ÙÊÍ·Å×ÊÔ´
+     * é”€æ¯é‡Šæ”¾èµ„æº
      */
     public void shutdown() {
         shutdown = true;

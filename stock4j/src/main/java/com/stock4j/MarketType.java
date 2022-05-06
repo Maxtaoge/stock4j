@@ -1,15 +1,15 @@
 package com.stock4j;
 
 /**
- * ÊĞ³¡ÀàĞÍ£ºÉÏÖ¤A¹É¡¢ÉîÖ¤A¹É
+ * å¸‚åœºç±»å‹ï¼šä¸Šè¯Aè‚¡ã€æ·±è¯Aè‚¡
  * @author qq: 2429298470<br>http://www.sigmagu.com/
  * @version 0.1
  */
 public enum MarketType {
-	/** ÉÏº£Ö¤È¯½»Ò×Ëù  */
-	SH("ÉÏº£Ö¤È¯½»Ò×Ëù"),
-	/** ÉîÛÚÖ¤È¯½»Ò×Ëù */
-	SZ("ÉîÛÚÖ¤È¯½»Ò×Ëù");
+	/** ä¸Šæµ·è¯åˆ¸äº¤æ˜“æ‰€  */
+	SH("ä¸Šæµ·è¯åˆ¸äº¤æ˜“æ‰€"),
+	/** æ·±åœ³è¯åˆ¸äº¤æ˜“æ‰€ */
+	SZ("æ·±åœ³è¯åˆ¸äº¤æ˜“æ‰€");
 
 	private String name;
 	
@@ -18,14 +18,14 @@ public enum MarketType {
 	}
 
 	/**
-	 * ½»Ò×ËùµÄÃû³Æ
+	 * äº¤æ˜“æ‰€çš„åç§°
 	 * @return
 	 */
 	public String getName() {
 		return name;
 	}
 
-	/**½»Ò×ËùµÄÃû³Æ*/
+	/**äº¤æ˜“æ‰€çš„åç§°*/
 	public void setName(String name) {
 		this.name = name;
 	}

@@ -26,7 +26,7 @@ import com.stock4j.factory.ths.ThsFactory;
 import com.stock4j.factory.wy.WangyiFactory;
 
 /**
- * ¹ÉÆ±ĞĞÇé¹¤³§£¬ÓÃÓÚ»ñÈ¡Ïà¹ØÊı¾İ
+ * è‚¡ç¥¨è¡Œæƒ…å·¥å‚ï¼Œç”¨äºè·å–ç›¸å…³æ•°æ®
  * @author qq: 2429298470<br>http://www.sigmagu.com/
  * @version 0.1
  */
@@ -35,31 +35,31 @@ public class DefaultStockFactory extends HttpClientPool implements StockFactory{
 	private static StockFactory stockFactory = null;
 	
 	/**
-	 * sinaĞĞÇé·şÎñÆ÷
+	 * sinaè¡Œæƒ…æœåŠ¡å™¨
 	 */
 	private StockFactory sina = new SinaFactory();
 	/**
-	 * ·ï»ËĞĞÇé·şÎñÆ÷
+	 * å‡¤å‡°è¡Œæƒ…æœåŠ¡å™¨
 	 */
 	private StockFactory ifeng = new IfengFactory();
 	/**
-	 * QQĞĞÇé·şÎñÆ÷
+	 * QQè¡Œæƒ…æœåŠ¡å™¨
 	 */
 	private StockFactory qq = new QQFactory();
 	/**
-	 * ½ğÈÚ½ÖĞĞÇé·şÎñÆ÷
+	 * é‡‘èè¡—è¡Œæƒ…æœåŠ¡å™¨
 	 */
 	private StockFactory jrj = new JrjFactory();
 	/**
-	 * 163ĞĞÇé·şÎñÆ÷
+	 * 163è¡Œæƒ…æœåŠ¡å™¨
 	 */
 	private StockFactory wangyi = new WangyiFactory();
 	/**
-	 * ºÍÑ¶ĞĞÇé·şÎñÆ÷
+	 * å’Œè®¯è¡Œæƒ…æœåŠ¡å™¨
 	 */
 	private StockFactory hexun = new HexunFactory();
 	/**
-	 * ºÍÑ¶ĞĞÇé·şÎñÆ÷
+	 * å’Œè®¯è¡Œæƒ…æœåŠ¡å™¨
 	 */
 	private StockFactory ths = new ThsFactory();
 	
@@ -70,7 +70,7 @@ public class DefaultStockFactory extends HttpClientPool implements StockFactory{
 	public static StockFactory build(){
 		if(stockFactory == null){
 			stockFactory = new DefaultStockFactory();
-			stockFactory.config();   //ÅäÖÃHttpClientPool
+			stockFactory.config();   //é…ç½®HttpClientPool
 		}
 		return stockFactory;
 	}
@@ -114,7 +114,7 @@ public class DefaultStockFactory extends HttpClientPool implements StockFactory{
 			e.printStackTrace();
 		}
 		
-		logger.error("ÎŞ·¨»ñÈ¡ĞĞÇéÊı¾İ£º" + stock.getScode());
+		logger.error("æ— æ³•è·å–è¡Œæƒ…æ•°æ®ï¼š" + stock.getScode());
 		return null;
 	}
 	
@@ -150,7 +150,7 @@ public class DefaultStockFactory extends HttpClientPool implements StockFactory{
 			e.printStackTrace();
 		}
 		
-		logger.error("ÎŞ·¨»ñÈ¡ÅÌ¿ÚÊı¾İ£º" + stock.getScode());
+		logger.error("æ— æ³•è·å–ç›˜å£æ•°æ®ï¼š" + stock.getScode());
 		return null;
 	}
 
@@ -187,7 +187,7 @@ public class DefaultStockFactory extends HttpClientPool implements StockFactory{
 			e.printStackTrace();
 		}
 		
-		logger.error("ÎŞ·¨»ñÈ¡ÅÌ¿ÚÊı¾İ");
+		logger.error("æ— æ³•è·å–ç›˜å£æ•°æ®");
 		return null;
 	}
 
@@ -206,7 +206,7 @@ public class DefaultStockFactory extends HttpClientPool implements StockFactory{
 			e.printStackTrace();
 		}
 		
-		logger.error("ÎŞ·¨»ñÈ¡¹ÉÆ±µÄ·ÖÊ±Êı¾İ:" + stock.getScode());
+		logger.error("æ— æ³•è·å–è‚¡ç¥¨çš„åˆ†æ—¶æ•°æ®:" + stock.getScode());
 		return null;
 	}
 
@@ -225,7 +225,7 @@ public class DefaultStockFactory extends HttpClientPool implements StockFactory{
 			e.printStackTrace();
 		}
 		
-		logger.error("ÎŞ·¨»ñÈ¡µ±ÈÕµÄ·ÖÊ±Êı¾İ£º" + stock.getScode());
+		logger.error("æ— æ³•è·å–å½“æ—¥çš„åˆ†æ—¶æ•°æ®ï¼š" + stock.getScode());
 		return null;
 	}
 
@@ -237,7 +237,7 @@ public class DefaultStockFactory extends HttpClientPool implements StockFactory{
 			e.printStackTrace();
 		}
 		
-		logger.error("ÎŞ·¨»ñÈ¡¹ÉÆ±µÄ×Ê½ğÁ÷Êı¾İ£º" + stock.getScode());
+		logger.error("æ— æ³•è·å–è‚¡ç¥¨çš„èµ„é‡‘æµæ•°æ®ï¼š" + stock.getScode());
 		return null;
 	}
 
@@ -250,7 +250,7 @@ public class DefaultStockFactory extends HttpClientPool implements StockFactory{
 			e.printStackTrace();
 		}
 		
-		logger.error("ÎŞ·¨»ñÈ¡¹ÉÆ±µÄ×Ê½ğÁ÷Êı¾İ£º" + stock.getScode());
+		logger.error("æ— æ³•è·å–è‚¡ç¥¨çš„èµ„é‡‘æµæ•°æ®ï¼š" + stock.getScode());
 		return null;
 	}
 
@@ -280,7 +280,7 @@ public class DefaultStockFactory extends HttpClientPool implements StockFactory{
 			e.printStackTrace();
 		}
 		
-		logger.error("ÎŞ·¨¸ù¾İÌáÊ¾ĞÅÏ¢»ñÈ¡¹ÉÆ±");
+		logger.error("æ— æ³•æ ¹æ®æç¤ºä¿¡æ¯è·å–è‚¡ç¥¨");
 		return null;
 	}
 
@@ -293,13 +293,13 @@ public class DefaultStockFactory extends HttpClientPool implements StockFactory{
 			e.printStackTrace();
 		}
 		
-		logger.error("ÎŞ·¨»ñÈ¡¹«Ë¾µÄĞÅÏ¢£º" + stock.getScode());
+		logger.error("æ— æ³•è·å–å…¬å¸çš„ä¿¡æ¯ï¼š" + stock.getScode());
 		return null;
 	}
 
 	/**
-	 * »ñÈ¡È¨Ï¢Êı¾İ
-	 * @param ¹ÉÆ±
+	 * è·å–æƒæ¯æ•°æ®
+	 * @param è‚¡ç¥¨
 	 */
 	@Override
 	public List<DividentRight> listDividentRight(Stock stock)
@@ -316,7 +316,7 @@ public class DefaultStockFactory extends HttpClientPool implements StockFactory{
 			e.printStackTrace();
 		}
 		
-		logger.error("ÎŞ·¨»ñÈ¡È¨Ï¢Êı¾İ£º" + stock.getScode());
+		logger.error("æ— æ³•è·å–æƒæ¯æ•°æ®ï¼š" + stock.getScode());
 		return null;
 	}
 }

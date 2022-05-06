@@ -8,38 +8,38 @@ import java.time.ZonedDateTime;
 import eu.verdelhan.ta4j.Decimal;
 
 /**
- * KÏßÊı¾İ£¨¿ªÅÌ¼Û£¬×î¸ß¼Û£¬×îµÍ¼Û£¬ÊÕÅÌ¼Û£©£¬¼Ì³ĞÓÚ{@link eu.verdelhan.ta4j.Tick}
+ * Kçº¿æ•°æ®ï¼ˆå¼€ç›˜ä»·ï¼Œæœ€é«˜ä»·ï¼Œæœ€ä½ä»·ï¼Œæ”¶ç›˜ä»·ï¼‰ï¼Œç»§æ‰¿äº{@link eu.verdelhan.ta4j.Tick}
  * @author qq: 2429298470<br>http://www.sigmagu.com/
  * @version 0.1
  */
 public class Tick implements Comparable<Tick>, eu.verdelhan.ta4j.Tick{
 
 	private static final long serialVersionUID = 1L;
-	/**Êı¾İÖÜÆÚ£¬Ä¬ÈÏÎªÈÕÏß*/
+	/**æ•°æ®å‘¨æœŸï¼Œé»˜è®¤ä¸ºæ—¥çº¿*/
 	private Duration timePeriod = Duration.ofDays(1);
-	/**¸ÃKÏßµÄ¿ªÊ¼Ê±¼ä*/
+	/**è¯¥Kçº¿çš„å¼€å§‹æ—¶é—´*/
     private LocalDateTime beginDateTime;
-    /**¸ÃKÏßµÄ½áÊøÊ±¼ä*/
+    /**è¯¥Kçº¿çš„ç»“æŸæ—¶é—´*/
     private LocalDateTime endDateTime;
-    /**¿ªÅÌ¼Û*/
+    /**å¼€ç›˜ä»·*/
 	private Double open;
-	/**×î¸ß¼Û*/
+	/**æœ€é«˜ä»·*/
 	private Double high;
-	/**×îµÍ¼Û*/
+	/**æœ€ä½ä»·*/
 	private Double low;
-	/**ÊÕÅÌ¼Û*/
+	/**æ”¶ç›˜ä»·*/
 	private Double close;
-	/**³É½»Á¿£¬µ¥Î»¹É*/
+	/**æˆäº¤é‡ï¼Œå•ä½è‚¡*/
 	private Long tradingVolume;
-	/**³É½»¶î£¬µ¥Î»Ôª*/
+	/**æˆäº¤é¢ï¼Œå•ä½å…ƒ*/
 	private Double turnover;
-	/**½»Ò×´ÎÊı*/
+	/**äº¤æ˜“æ¬¡æ•°*/
 	private int trades = 0;
 	
 	public Tick(){}
 	
 	/**
-	 * @param period ÖÜÆÚ
+	 * @param period å‘¨æœŸ
 	 */
 	public Tick(PeriodType period){
 		switch(period){
@@ -100,7 +100,7 @@ public class Tick implements Comparable<Tick>, eu.verdelhan.ta4j.Tick{
 	}
 
 	/**
-	 * ¿ªÅÌ¼Û
+	 * å¼€ç›˜ä»·
 	 * @return
 	 */
 	public Double getOpen() {
@@ -112,7 +112,7 @@ public class Tick implements Comparable<Tick>, eu.verdelhan.ta4j.Tick{
 	}
 
 	/**
-	 * ×î¸ß¼Û
+	 * æœ€é«˜ä»·
 	 * @return
 	 */
 	public Double getHigh() {
@@ -140,7 +140,7 @@ public class Tick implements Comparable<Tick>, eu.verdelhan.ta4j.Tick{
 	}
 
 	/**
-	 * ³É½»Á¿
+	 * æˆäº¤é‡
 	 * @return
 	 */
 	public Long getTradingVolume() {
@@ -152,7 +152,7 @@ public class Tick implements Comparable<Tick>, eu.verdelhan.ta4j.Tick{
 	}
 
 	/**
-	 * ³É½»¶îS
+	 * æˆäº¤é¢S
 	 * @return
 	 */
 	public Double getTurnover() {
